@@ -1,0 +1,18 @@
+[Unit]
+Description=Thermal Guard Backend
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=thermalguard
+Group=thermalguard
+WorkingDirectory=/opt/thermal-guard
+EnvironmentFile=/opt/thermal-guard/.env
+Environment=PYTHONPATH=/opt/thermal-guard
+ExecStart=/opt/thermal-guard/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8080 --log-level info
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

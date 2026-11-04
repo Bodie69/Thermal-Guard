@@ -1,0 +1,11 @@
+# Pi scripts, services and Python must keep LF line endings to run on Linux.
+* text=auto eol=lf
+*.bat text eol=crlf
+*.png binary
+*.webp binary
+*.jpg binary
+*.jar binary
+*.mp3 binary
+*.wav binary
+*.ogg binary
+*.ttf binary

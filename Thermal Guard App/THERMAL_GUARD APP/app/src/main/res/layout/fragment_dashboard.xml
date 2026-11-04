@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:background="@drawable/bg_app_main" tools:context=".ui.DashboardFragment" tools:showIn="@layout/activity_main">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingHorizontal="18dp" android:paddingTop="14dp" android:paddingBottom="24dp">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="64dp" android:gravity="center_vertical" android:orientation="horizontal">
+
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Dashboard" android:textColor="@color/tg_text" android:textSize="27sp" android:textStyle="bold"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Live temperature monitoring" android:textColor="@color/tg_muted" android:textSize="12sp"/>
+            </LinearLayout>
+
+            <ImageButton android:id="@+id/btnAlerts" android:layout_width="48dp" android:layout_height="48dp" android:background="@drawable/bg_icon_circle" android:contentDescription="Open alerts" android:padding="13dp" android:src="@drawable/ic_bell" app:tint="@color/tg_blue_2"/>
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" app:cardBackgroundColor="@color/tg_surface_2" app:cardCornerRadius="22dp" app:strokeColor="@color/tg_border" app:strokeWidth="1dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="18dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
+
+                <ImageView android:layout_width="48dp" android:layout_height="48dp" android:background="@drawable/bg_icon_circle_primary" android:contentDescription="Raspberry Pi status" android:padding="12dp" android:src="@drawable/ic_raspberry_pi_status" app:tint="@color/tg_blue_2"/>
+
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="14dp" android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Raspberry Pi" android:textColor="@color/tg_text" android:textSize="16sp" android:textStyle="bold"/>
+                    <TextView android:id="@+id/tvSystem" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="OFFLINE • waiting for heartbeat" android:textColor="@color/tg_muted" android:textSize="12sp"/>
+                </LinearLayout>
+
+                <com.google.android.material.chip.Chip android:id="@+id/chipSystem" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="OFFLINE" android:textColor="@color/tg_blue_2" android:textSize="10sp" app:chipBackgroundColor="@color/tg_surface" app:chipMinHeight="32dp"/>
+            </LinearLayout>
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginVertical="12dp" android:background="@color/tg_border"/>
+            <LinearLayout android:id="@+id/piDetails" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="18dp" android:gravity="center_vertical" android:orientation="horizontal">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Temperature zones" android:textColor="@color/tg_text" android:textSize="17sp" android:textStyle="bold"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="LIVE DATA" android:textColor="@color/tg_green" android:textSize="10sp" android:textStyle="bold"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/zoneList" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:nestedScrollingEnabled="false" tools:listitem="@layout/item_zone" tools:itemCount="3"/>
+
+        <com.google.android.material.card.MaterialCardView android:id="@+id/sirenCard" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" app:cardBackgroundColor="@color/tg_surface_2" app:cardCornerRadius="22dp" app:strokeColor="@color/tg_border" app:strokeWidth="1dp">
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="18dp">
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
+
+                    <ImageView android:layout_width="48dp" android:layout_height="48dp" android:background="@drawable/bg_icon_circle_primary" android:contentDescription="Siren control" android:padding="12dp" android:src="@drawable/ic_siren_on" app:tint="@color/tg_amber"/>
+
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="14dp" android:layout_weight="1" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Siren control" android:textColor="@color/tg_text" android:textSize="18sp" android:textStyle="bold"/>
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="Direct Raspberry Pi GPIO relay control" android:textColor="@color/tg_muted" android:textSize="11sp"/>
+                    </LinearLayout>
+
+                    <com.google.android.material.chip.Chip android:id="@+id/chipRelayMode" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="AUTO" android:textColor="@color/tg_blue_2" android:textSize="10sp" android:textStyle="bold" app:chipBackgroundColor="@color/tg_surface"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:background="@drawable/bg_icon_circle" android:gravity="center_vertical" android:orientation="horizontal" android:padding="12dp">
+                    <View android:id="@+id/sirenStateDot" android:layout_width="10dp" android:layout_height="10dp" android:background="@drawable/bg_status_dot_off"/>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="10dp" android:layout_weight="1" android:orientation="vertical">
+                        <TextView android:id="@+id/tvSirenState" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Actual siren: waiting for Raspberry Pi" android:textColor="@color/tg_text" android:textSize="14sp" android:textStyle="bold"/>
+                        <TextView android:id="@+id/tvSirenDetail" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="GPIO status unavailable" android:textColor="@color/tg_muted" android:textSize="11sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/sirenDetails" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:orientation="vertical"/>
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:text="Choose siren mode" android:textColor="@color/tg_text" android:textSize="13sp" android:textStyle="bold"/>
+
+                <com.google.android.material.button.MaterialButtonToggleGroup android:id="@+id/relayGroup" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="9dp" app:selectionRequired="true" app:singleSelection="true">
+
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnOn" android:layout_width="0dp" android:layout_height="58dp" android:layout_weight="1" android:text="ON" android:textColor="@color/siren_button_content" android:textStyle="bold" app:backgroundTint="@color/siren_on_button_bg" app:icon="@drawable/ic_siren_on" app:iconGravity="textStart" app:iconTint="@color/siren_button_content"/>
+
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnAuto" android:layout_width="0dp" android:layout_height="58dp" android:layout_weight="1" android:text="AUTO" android:textColor="@color/siren_button_content" android:textStyle="bold" app:backgroundTint="@color/siren_auto_button_bg" app:icon="@drawable/ic_siren_auto" app:iconGravity="textStart" app:iconTint="@color/siren_button_content"/>
+
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnOff" android:layout_width="0dp" android:layout_height="58dp" android:layout_weight="1" android:text="OFF" android:textColor="@color/siren_button_content" android:textStyle="bold" app:backgroundTint="@color/siren_off_button_bg" app:icon="@drawable/ic_siren_off" app:iconGravity="textStart" app:iconTint="@color/siren_button_content"/>
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                <TextView android:id="@+id/tvSirenCommand" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="Waiting for Raspberry Pi confirmation" android:textColor="@color/tg_muted" android:textSize="11sp"/>
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="7dp" android:text="AUTO: siren turns ON only when the Raspberry Pi detects a critical temperature. OFF: forces the siren off. ON: manual siren test/activation." android:textColor="@color/tg_muted" android:textSize="10sp"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

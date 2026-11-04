@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Thermal Guard Kiosk Watchdog
+Comment=Restarts the kiosk browser if the dashboard crashes or freezes
+Exec=/home/thermalguard/thermal-guard-kiosk-watchdog.sh
+Terminal=false
+X-GNOME-Autostart-enabled=true

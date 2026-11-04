@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_app_main"
+    tools:context=".MainActivity">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="102dp"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <!--
+        Custom navigation bar. Each destination uses a normal ImageView instead of
+        BottomNavigationView's menu renderer, which guarantees that icons remain
+        visible across Android versions, device themes, Admin and Staff roles.
+    -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
+        android:elevation="18dp"
+        app:cardBackgroundColor="@color/tg_nav_bar"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="18dp"
+        app:strokeColor="@color/tg_border"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:baselineAligned="false"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="6dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="6dp"
+            android:paddingBottom="6dp">
+
+            <LinearLayout
+                android:id="@+id/navDashboard"
+                style="@style/ThermalGuardNavigationItem"
+                android:contentDescription="Dashboard">
+
+                <ImageView
+                    android:id="@+id/navDashboardIcon"
+                    style="@style/ThermalGuardNavigationIcon"
+                    android:contentDescription="Dashboard"
+                    android:src="@drawable/nav_home_icon" />
+
+                <TextView
+                    android:id="@+id/navDashboardLabel"
+                    style="@style/ThermalGuardNavigationLabel"
+                    android:text="Home" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/navAlerts"
+                style="@style/ThermalGuardNavigationItem"
+                android:contentDescription="Alerts">
+
+                <ImageView
+                    android:id="@+id/navAlertsIcon"
+                    style="@style/ThermalGuardNavigationIcon"
+                    android:contentDescription="Alerts"
+                    android:src="@drawable/nav_bell_icon" />
+
+                <TextView
+                    android:id="@+id/navAlertsLabel"
+                    style="@style/ThermalGuardNavigationLabel"
+                    android:text="Alerts" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/navDiagnostics"
+                style="@style/ThermalGuardNavigationItem"
+                android:contentDescription="System health">
+
+                <ImageView
+                    android:id="@+id/navDiagnosticsIcon"
+                    style="@style/ThermalGuardNavigationIcon"
+                    android:contentDescription="System health"
+                    android:src="@drawable/nav_diagnostics_icon" />
+
+                <TextView
+                    android:id="@+id/navDiagnosticsLabel"
+                    style="@style/ThermalGuardNavigationLabel"
+                    android:text="Health" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/navStaff"
+                style="@style/ThermalGuardNavigationItem"
+                android:contentDescription="Staff">
+
+                <ImageView
+                    android:id="@+id/navStaffIcon"
+                    style="@style/ThermalGuardNavigationIcon"
+                    android:contentDescription="Staff or access"
+                    android:src="@drawable/nav_people_icon" />
+
+                <TextView
+                    android:id="@+id/navStaffLabel"
+                    style="@style/ThermalGuardNavigationLabel"
+                    android:text="Staff" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/navSettings"
+                style="@style/ThermalGuardNavigationItem"
+                android:contentDescription="Settings">
+
+                <ImageView
+                    android:id="@+id/navSettingsIcon"
+                    style="@style/ThermalGuardNavigationIcon"
+                    android:contentDescription="Settings"
+                    android:src="@drawable/nav_settings_icon" />
+
+                <TextView
+                    android:id="@+id/navSettingsLabel"
+                    style="@style/ThermalGuardNavigationLabel"
+                    android:text="Settings" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

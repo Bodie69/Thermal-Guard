@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#06101e">
+  <title>Thermal Guard</title>
+  <link rel="stylesheet" href="/static/css/kiosk.css?v=10.2.2">
+<link rel="stylesheet" href="/static/css/wifi-keyboard-mini.css?v=20261104_fit">
+<link rel="stylesheet" href="/static/css/wifi-functional-fix.css?v=20261104_zfix">
+<link rel="stylesheet" href="/static/css/zone-details.css?v=1.0.0">
+<link rel="stylesheet" href="/static/css/kiosk-status.css?v=1.2.0">
+<link rel="stylesheet" href="/static/css/mobile.css?v=1.0.0">
+</head>
+<body>
+  <main class="shell" id="appShell" aria-label="Thermal Guard monitoring dashboard">
+    <header class="topbar">
+      <section class="brand" aria-label="Thermal Guard">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 80 92">
+            <defs>
+              <linearGradient id="shieldFill" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#2f8fd2" stop-opacity=".44"/>
+                <stop offset="1" stop-color="#10263a" stop-opacity=".20"/>
+              </linearGradient>
+              <linearGradient id="shieldStroke" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#2bc2ff"/>
+                <stop offset="1" stop-color="#c8eaff"/>
+              </linearGradient>
+              <filter id="logoGlow">
+                <feGaussianBlur stdDeviation="1.8" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <path d="M40 4 70 16v26c0 21-12.2 36-30 45C22.2 78 10 63 10 42V16L40 4Z"
+                  fill="url(#shieldFill)" stroke="url(#shieldStroke)" stroke-width="4"/>
+            <path d="M45 51V28a7 7 0 1 0-14 0v23a12 12 0 1 0 14 0Z"
+                  fill="none" stroke="#35c6ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"
+                  filter="url(#logoGlow)"/>
+            <path d="M38 37v23" fill="none" stroke="#35c6ff" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="brand-copy">
+          <h1>THERMAL <span>GUARD</span></h1>
+          <p>ComLab 1 • Real-Time Monitoring</p>
+          <div id="healthChips" class="health-chips" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="header-status" aria-label="System status">
+        <button id="networkCard" class="status-card clickable" type="button" aria-label="Open Wi-Fi setup">
+          <span class="status-icon status-wifi" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M2 8.8a15.5 15.5 0 0 1 20 0M5 12.4a10.8 10.8 0 0 1 14 0M8.5 16a5.6 5.6 0 0 1 7 0M12 20h.01"/></svg>
+          </span>
+          <span class="status-copy"><small>Network</small><strong><i id="networkDot" class="dot green"></i><span id="networkState">Online</span></strong></span>
+        </button>
+
+        <div class="status-card">
+          <span class="status-icon status-cloud" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M7 18h10a5 5 0 0 0 .5-10 6 6 0 0 0-11.6 1.4A4.3 4.3 0 0 0 7 18Z"/></svg>
+          </span>
+          <span class="status-copy"><small>Firebase</small><strong><i id="firebaseDot" class="dot green"></i><span id="firebaseState">Online</span></strong></span>
+        </div>
+
+        <div class="status-card">
+          <span class="status-icon status-chip" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></svg>
+          </span>
+          <span class="status-copy"><small>Sensors</small><strong><i id="sensorDot" class="dot amber"></i><span id="sensorCount">0 / 3</span></strong></span>
+        </div>
+
+        <div class="time-block">
+          <small id="currentDate">--</small>
+          <strong id="currentTime">--:--</strong>
+        </div>
+
+        <button id="settingsBtn" class="gear-btn" type="button" aria-label="Open Wi-Fi setup">
+          <svg viewBox="0 0 24 24"><path d="M12 15.4A3.4 3.4 0 1 0 12 8.6a3.4 3.4 0 0 0 0 6.8Z"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3V2.8h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></svg>
+        </button>
+      </section>
+    </header>
+
+    <section class="zones" aria-label="Temperature and humidity zones">
+      <article class="zone-card normal" id="zone-entrance">
+        <div class="zone-head">
+          <div class="zone-icon entrance" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M5 21V4l12-2v19M17 21h3V5h-3M10 12h.01"/></svg>
+          </div>
+          <div class="zone-title"><h2>Entrance</h2><p>Zone 1</p></div>
+          <span class="badge" data-zone-status="entrance"><i></i>NORMAL</span>
+        </div>
+        <div class="measurement temp">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 14.8V5a4 4 0 0 0-8 0v9.8a6 6 0 1 0 8 0Z"/><path d="M10 9v8"/></svg>
+          <strong data-zone-temp="entrance">--.--</strong><span>°C</span>
+        </div>
+        <div class="measurement humidity">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2S5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13Z"/></svg>
+          <strong data-zone-hum="entrance">--.--</strong><span>% RH</span>
+        </div>
+        <div class="wave" aria-hidden="true"></div>
+      </article>
+
+      <article class="zone-card offline" id="zone-exit">
+        <div class="zone-head">
+          <div class="zone-icon exit" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M10 4H4v16h6M13 8l4 4-4 4M8 12h9"/></svg>
+          </div>
+          <div class="zone-title"><h2>Exit</h2><p>Zone 2</p></div>
+          <span class="badge" data-zone-status="exit"><i></i>OFFLINE</span>
+        </div>
+        <div class="measurement temp">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 14.8V5a4 4 0 0 0-8 0v9.8a6 6 0 1 0 8 0Z"/><path d="M10 9v8"/></svg>
+          <strong data-zone-temp="exit">--.--</strong><span>°C</span>
+        </div>
+        <div class="measurement humidity">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2S5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13Z"/></svg>
+          <strong data-zone-hum="exit">--.--</strong><span>% RH</span>
+        </div>
+        <div class="wave" aria-hidden="true"></div>
+      </article>
+
+      <article class="zone-card offline" id="zone-front">
+        <div class="zone-head">
+          <div class="zone-icon front" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-4 2.6-6 6-6s6 2 6 6M10 20c0-4 2.6-6 6-6s6 2 6 6"/></svg>
+          </div>
+          <div class="zone-title"><h2>Front</h2><p>Zone 3</p></div>
+          <span class="badge" data-zone-status="front"><i></i>OFFLINE</span>
+        </div>
+        <div class="measurement temp">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 14.8V5a4 4 0 0 0-8 0v9.8a6 6 0 1 0 8 0Z"/><path d="M10 9v8"/></svg>
+          <strong data-zone-temp="front">--.--</strong><span>°C</span>
+        </div>
+        <div class="measurement humidity">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2S5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13Z"/></svg>
+          <strong data-zone-hum="front">--.--</strong><span>% RH</span>
+        </div>
+        <div class="wave" aria-hidden="true"></div>
+      </article>
+    </section>
+
+    <section class="lower-cards" aria-label="Siren and temperature thresholds">
+      <button id="sirenCard" class="mini-card siren" type="button" title="Tap to select siren mode">
+        <div class="mini-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M7 16v-5a5 5 0 0 1 10 0v5M5 20h14M4 12H1M23 12h-3M5 5 3 3M19 5l2-2M9 20v1M15 20v1"/></svg>
+        </div>
+        <div><small>SIREN</small><strong id="sirenState">AUTO • OFF</strong></div>
+      </button>
+
+      <div class="mini-card warning">
+        <div class="mini-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 3 2 21h20L12 3Z"/><path d="M12 9v5M12 18h.01"/></svg>
+        </div>
+        <div><small>WARNING</small><strong id="warningValue">--.- °C</strong></div>
+      </div>
+
+      <div class="mini-card critical">
+        <div class="mini-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M13 2c1 5-4 6-2 11 1.5-2 3-3 4-5 4 4 5 8 3 11a7 7 0 1 1-11-8c0 3 2 4 3 5-1-6 4-8 3-14Z"/></svg>
+        </div>
+        <div><small>CRITICAL</small><strong id="criticalValue">--.- °C</strong></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <div id="sirenMenu" class="siren-menu" aria-label="Siren mode">
+    <button data-mode="auto" type="button">AUTO</button>
+    <button data-mode="on" type="button">ON</button>
+    <button data-mode="off" type="button">OFF</button>
+  </div>
+
+  <script src="/static/js/kiosk.js?v=10.8.2"></script>
+  <script src="/static/js/zone-details.js?v=1.1.0"></script>
+
+<script src="/static/js/wifi-settings.js?v=20261007_buttons_fixed"></script>
+
+
+<script src="/static/js/wifi-keyboard.js?v=20261007_senior_ui_1"></script>
+<script src="/static/js/wifi-keyboard-viewport.js?v=20261007_2"></script>
+<script src="/static/js/wifi-eye-icon.js?v=20261104_noloop"></script>
+<script src="/static/js/wifi-touch-fix.js?v=20261104_throttle"></script>
+</body>
+</html>

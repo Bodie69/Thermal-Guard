@@ -1,0 +1,54 @@
+<resources>
+    <!-- High-contrast LIGHT palette. Night overrides live in values-night/colors.xml. -->
+    <color name="tg_bg">#F3F6FA</color>
+    <color name="tg_surface">#FFFFFF</color>
+    <color name="tg_surface_2">#F8FAFC</color>
+    <color name="tg_surface_3">#E8EEF5</color>
+    <color name="tg_blue">#0B63CE</color>
+    <color name="tg_blue_2">#075A9C</color>
+    <color name="tg_text">#101828</color>
+    <color name="tg_muted">#475467</color>
+    <color name="tg_border">#CBD5E1</color>
+    <color name="tg_red">#B42318</color>
+    <color name="tg_red_dark">#7A271A</color>
+    <color name="tg_amber">#B54708</color>
+    <color name="tg_amber_dark">#7A2E0E</color>
+    <color name="tg_green">#067647</color>
+    <color name="tg_green_dark">#05603A</color>
+    <color name="tg_teal">#067A6F</color>
+    <color name="tg_gray_state">#667085</color>
+    <color name="tg_white">#FFFFFF</color>
+    <color name="tg_google_text">#142033</color>
+    <color name="tg_nav_unselected">#475467</color>
+    <color name="tg_nav_bar">#FFFFFF</color>
+    <color name="tg_nav_selected">#075985</color>
+    <color name="tg_nav_unselected_strong">#344054</color>
+
+    <!-- Settings-specific semantic colors; all preserve readable contrast. -->
+    <color name="tg_settings_hero_start">#E7F3FF</color>
+    <color name="tg_settings_hero_end">#F5FAFF</color>
+    <color name="tg_settings_hero_border">#98C7EE</color>
+    <color name="tg_settings_status_bg">#EEF4F8</color>
+    <color name="tg_settings_role_bg">#E0F2FE</color>
+    <color name="tg_settings_danger_bg">#FFF4F3</color>
+    <color name="tg_settings_danger_border">#FDA29B</color>
+    <color name="tg_icon_circle_bg">#E6EEF7</color>
+    <color name="tg_icon_circle_primary_bg">#DCEFFF</color>
+    <color name="tg_app_bg_end">#E9EFF6</color>
+    <color name="tg_pill_amber_bg">#FFF4E5</color>
+    <color name="tg_pill_green_bg">#ECFDF3</color>
+    <color name="tg_pill_red_bg">#FEF3F2</color>
+
+    <!-- Login redesign colors intentionally remain light in both day/night so the auth screen matches the supplied reference. -->
+    <color name="tg_login_bg">#F8FCFF</color>
+    <color name="tg_login_navy">#082554</color>
+    <color name="tg_login_blue">#0877DE</color>
+    <color name="tg_login_cyan">#17AFC8</color>
+    <color name="tg_login_teal">#0CA99B</color>
+    <color name="tg_login_text">#102B54</color>
+    <color name="tg_login_secondary">#667E9E</color>
+    <color name="tg_login_muted">#8A9EB9</color>
+    <color name="tg_login_border">#CBD8E8</color>
+    <color name="tg_login_success">#14A957</color>
+
+</resources>

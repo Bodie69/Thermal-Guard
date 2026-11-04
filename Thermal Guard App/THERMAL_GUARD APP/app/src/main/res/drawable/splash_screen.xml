@@ -1,0 +1,19 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/tg_bg"/>
+
+    <item
+        android:width="172dp"
+        android:height="172dp"
+        android:gravity="center">
+        <shape android:shape="oval">
+            <solid android:color="@color/tg_surface_2"/>
+            <stroke android:width="2dp" android:color="@color/tg_blue"/>
+        </shape>
+    </item>
+
+    <item
+        android:width="116dp"
+        android:height="116dp"
+        android:gravity="center"
+        android:drawable="@drawable/ic_splash_logo"/>
+</layer-list>

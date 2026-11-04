@@ -1,0 +1,76 @@
+/* Thermal Guard kiosk: health chips, stale-data banner, siren confirmation, toast */
+
+/* ---- warning chips under the title (power / SMS) ---- */
+.health-chips { display: none; gap: 5px; margin-top: 4px; flex-wrap: nowrap; overflow: hidden; }
+.brand-copy.has-chips .health-chips { display: flex; }
+.brand-copy.has-chips > p { display: none; }          /* chips replace the subtitle while shown */
+.health-chip {
+  padding: 3px 8px; border-radius: 999px; white-space: nowrap;
+  font-size: 10.5px; font-weight: 800; letter-spacing: .02em; line-height: 1.2;
+  border: 1px solid currentColor;
+}
+.health-chip.amber { color: #ffc24d; background: rgba(255, 178, 26, .14); }
+.health-chip.red { color: #ff7a8a; background: rgba(255, 80, 101, .16); }
+
+/* ---- stale data ---- */
+.stale-banner {
+  position: fixed; left: 50%; top: 50%; z-index: 400; display: none;
+  transform: translate(-50%, -50%); width: min(560px, calc(100vw - 32px)); box-sizing: border-box;
+  padding: 14px 18px; border-radius: 16px; text-align: center;
+  border: 2px solid #ffb21a; background: rgba(28, 18, 4, .94); color: #ffe2a8;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, .55);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.stale-banner.show { display: block; }
+.stale-banner b { display: block; font-size: 20px; color: #ffcf6b; margin-bottom: 4px; }
+.stale-banner span { display: block; font-size: 13.5px; line-height: 1.4; }
+body.data-stale .zones .measurement strong,
+body.data-stale .zones .measurement span { opacity: .35; }
+body.data-stale .zones .badge { filter: grayscale(1); opacity: .5; }
+
+/* ---- siren ON/OFF confirmation ---- */
+.siren-confirm {
+  position: fixed; inset: 0; z-index: 9000; display: none; place-items: center; padding: 12px;
+  background: rgba(2, 8, 16, .72); backdrop-filter: blur(3px);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.siren-confirm.open { display: grid; }
+.siren-confirm-box {
+  width: min(440px, 100%); box-sizing: border-box; padding: 18px 20px 16px;
+  border: 1px solid #24496a; border-radius: 18px; color: #f6f9ff;
+  background: linear-gradient(180deg, #0f2236, #0a1828); box-shadow: 0 24px 60px rgba(0, 0, 0, .55);
+}
+.siren-confirm-box h2 { margin: 0 0 8px; font-size: 21px; font-weight: 900; }
+.siren-confirm-box p { margin: 0; color: #a9c1d9; font-size: 14px; line-height: 1.45; }
+.siren-confirm-actions { display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; margin-top: 16px; }
+.siren-confirm-actions button {
+  min-height: 50px; border-radius: 14px; border: 1px solid transparent; cursor: pointer; touch-action: manipulation;
+  font: 800 15px/1 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.siren-confirm-actions .sc-cancel { background: #0a2033; color: #cfe3f7; border-color: #204d6b; }
+.siren-confirm-actions .sc-ok.on { background: linear-gradient(180deg, #ff5d70, #e23a50); color: #fff; }
+.siren-confirm-actions .sc-ok.off { background: linear-gradient(180deg, #ffbf3d, #e89a0c); color: #1b1203; }
+
+/* ---- siren menu: bigger touch targets ---- */
+.siren-menu { gap: 4px; }
+.siren-menu button { min-width: 64px; min-height: 44px; font-size: 14px; font-weight: 800; }
+
+/* ---- siren hardware fault ---- */
+#sirenCard.fault { border-color: #ff5065 !important; box-shadow: 0 0 0 2px rgba(255, 80, 101, .35) inset; }
+#sirenCard.fault #sirenState::after { content: ' • FAULT'; color: #ff7a8a; }
+
+/* ---- toast: readable on the 800x480 screen ---- */
+.toast { font-size: 14px !important; font-weight: 700; padding: 10px 16px !important; border-radius: 12px !important;
+  bottom: 22px !important; z-index: 9500 !important; box-shadow: 0 10px 30px rgba(0, 0, 0, .45); max-width: calc(100vw - 32px); }
+
+@media (max-width: 700px) {
+  .health-chip { font-size: 9px; padding: 2px 6px; }
+  .stale-banner b { font-size: 17px; }
+}
+
+/* ---- alarm held while the zone's sensor is offline ---- */
+.zone-card.sensor-lost { outline: 2px dashed currentColor; outline-offset: -4px; }
+.zone-card.critical.sensor-lost { outline-color: #ff5065; }
+.zone-card.warning.sensor-lost { outline-color: #ffb21a; }
+.zone-card.sensor-lost .measurement strong,
+.zone-card.sensor-lost .measurement span { opacity: .45; }

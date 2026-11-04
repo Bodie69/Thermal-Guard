@@ -1,0 +1,34 @@
+# ---- secrets / machine-specific config (never commit) ----
+.env
+*service-account*.json
+google-services.json
+local.properties
+*.jks
+*.keystore
+*.pem
+*.key
+
+# ---- build output / caches ----
+build/
+.gradle/
+.kotlin/
+.idea/
+*.iml
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+__pycache__/
+*.pyc
+venv/
+
+# ---- local backups ----
+*.bak
+*.bak-*
+*.tgz
+*.log
+database.rules.*.json
+!database.rules.json
+ui-backup-before-redesign/
+Raspberry Pi Thermal Guard.before-pull-*/

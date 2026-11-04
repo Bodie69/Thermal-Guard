@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@drawable/bg_app_main" android:fillViewport="true" tools:context=".ui.PendingFragment" tools:showIn="@layout/activity_main">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_horizontal" android:orientation="vertical" android:padding="24dp">
+
+        <ImageView android:layout_width="88dp" android:layout_height="88dp" android:layout_marginTop="16dp" android:contentDescription="@string/app_name" android:src="@drawable/ic_thermal_guard_logo" />
+        <TextView android:id="@+id/tvStatusLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:background="@drawable/bg_pill_amber" android:paddingHorizontal="14dp" android:paddingVertical="7dp" android:text="PENDING ADMIN APPROVAL" android:textColor="@color/tg_amber" android:textSize="11sp" android:textStyle="bold" />
+        <TextView android:id="@+id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:gravity="center" android:text="Access request submitted" android:textColor="@color/tg_text" android:textSize="24sp" android:textStyle="bold" />
+        <TextView android:id="@+id/info" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="7dp" android:gravity="center" android:lineSpacingExtra="2dp" android:textColor="@color/tg_muted" android:textSize="13sp" />
+
+        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" app:cardBackgroundColor="@color/tg_surface_2" app:cardCornerRadius="20dp" app:strokeColor="@color/tg_border" app:strokeWidth="1dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="17dp">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="SIGNED-IN ACCOUNT" android:textColor="@color/tg_blue_2" android:textSize="10sp" android:textStyle="bold" />
+                <TextView android:id="@+id/tvAccount" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:textColor="@color/tg_text" android:textSize="16sp" android:textStyle="bold" tools:text="Juan Dela Cruz" />
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginVertical="12dp" android:background="@color/tg_border" />
+                <LinearLayout android:id="@+id/accountRows" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" app:cardBackgroundColor="@color/tg_surface_2" app:cardCornerRadius="20dp" app:strokeColor="@color/tg_border" app:strokeWidth="1dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="17dp">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="ACCESS PROGRESS" android:textColor="@color/tg_blue_2" android:textSize="10sp" android:textStyle="bold" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:orientation="horizontal">
+                    <TextView android:id="@+id/tvStep1Mark" android:layout_width="24dp" android:layout_height="wrap_content" android:gravity="center" android:text="•" android:textColor="@color/tg_amber" android:textSize="14sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/tvStep1" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:layout_weight="1" android:textColor="@color/tg_text" android:textSize="14sp" android:textStyle="bold" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:orientation="horizontal">
+                    <TextView android:id="@+id/tvStep2Mark" android:layout_width="24dp" android:layout_height="wrap_content" android:gravity="center" android:text="•" android:textColor="@color/tg_amber" android:textSize="14sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/tvStep2" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:layout_weight="1" android:textColor="@color/tg_text" android:textSize="14sp" android:textStyle="bold" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:orientation="horizontal">
+                    <TextView android:id="@+id/tvStep3Mark" android:layout_width="24dp" android:layout_height="wrap_content" android:gravity="center" android:text="•" android:textColor="@color/tg_amber" android:textSize="14sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/tvStep3" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:layout_weight="1" android:textColor="@color/tg_text" android:textSize="14sp" android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton android:id="@+id/btnRequestAgain" android:layout_width="match_parent" android:layout_height="54dp" android:layout_marginTop="18dp" android:text="Request access again" android:textAllCaps="false" android:textStyle="bold" android:visibility="gone" app:backgroundTint="@color/tg_blue" app:cornerRadius="14dp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btnRefresh" android:layout_width="match_parent" android:layout_height="54dp" android:layout_marginTop="10dp" android:text="Check approval status" android:textAllCaps="false" android:textStyle="bold" app:backgroundTint="@color/tg_blue" app:cornerRadius="14dp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btnLogout" android:layout_width="match_parent" android:layout_height="52dp" android:layout_marginTop="10dp" android:text="Use another account" android:textAllCaps="false" android:textColor="@color/tg_text" app:backgroundTint="@color/tg_surface_3" app:cornerRadius="14dp" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

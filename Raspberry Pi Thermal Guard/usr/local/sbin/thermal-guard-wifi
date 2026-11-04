@@ -1,0 +1,257 @@
+#!/usr/bin/python3 -I
+"""Thermal Guard Wi-Fi helper (runs as root via sudo, see /etc/sudoers.d/thermal-guard-wifi).
+
+Usage:
+  thermal-guard-wifi on
+  thermal-guard-wifi off
+  thermal-guard-wifi connect SSID              (password on stdin, one line)
+  thermal-guard-wifi connect --dry-run SSID    (validate only; network untouched)
+
+The Wi-Fi password is read from stdin, never from the command line, and is
+handed to NetworkManager in a root-only (0600) connection file. It therefore
+never appears in `ps` / /proc/<pid>/cmdline - not for sudo, this helper, or
+nmcli. (A third "connect SSID PASSWORD" argument is still accepted for old
+callers, but leaks the password like before.)
+"""
+import os
+import re
+import subprocess
+import sys
+import uuid
+
+NMCLI = '/usr/bin/nmcli'
+IFACE = 'wlan0'
+CONN_DIR = '/etc/NetworkManager/system-connections'
+CONNECT_WAIT_SECONDS = 35
+
+
+class WifiError(Exception):
+    pass
+
+
+def run(args, check=True, timeout=60, stdin_text=None):
+    p = subprocess.run(args, capture_output=True, text=True, timeout=timeout,
+                       input=stdin_text, env={'LC_ALL': 'C', 'LANG': 'C', 'PATH': '/usr/sbin:/usr/bin:/sbin:/bin'})
+    if check and p.returncode != 0:
+        raise WifiError((p.stderr or p.stdout or f'{args[0]} failed').strip())
+    return p
+
+
+def radio_on():
+    run(['/usr/sbin/rfkill', 'unblock', 'wifi'], check=False)
+    run([NMCLI, 'networking', 'on'])
+    run([NMCLI, 'radio', 'wifi', 'on'])
+    run(['/usr/sbin/ip', 'link', 'set', IFACE, 'up'], check=False)
+
+
+# ---------- validation ----------
+
+def validate_ssid(ssid):
+    raw = ssid.encode('utf-8')
+    if not ssid or len(raw) > 32:
+        raise WifiError('Wi-Fi network name must be 1-32 bytes')
+    if any(ord(c) < 32 or ord(c) == 127 for c in ssid):
+        raise WifiError('Invalid Wi-Fi network name')
+    return ssid
+
+
+def validate_password(password, key_mgmt):
+    if any(ord(c) < 32 or ord(c) == 127 for c in password):
+        raise WifiError('Invalid characters in Wi-Fi password')
+    if key_mgmt == 'wpa-psk':
+        if re.fullmatch(r'[0-9A-Fa-f]{64}', password):
+            return
+        if not 8 <= len(password) <= 63 or not password.isascii():
+            raise WifiError('Wi-Fi password must be 8-63 characters')
+    elif key_mgmt == 'sae' and not 1 <= len(password) <= 128:
+        raise WifiError('Wi-Fi password is too long')
+
+
+# ---------- scan / security ----------
+
+def split_terse(line):
+    """Split one `nmcli -t` line on unescaped ':' and unescape '\\:' '\\\\'."""
+    fields, cur, i = [], [], 0
+    while i < len(line):
+        c = line[i]
+        if c == '\\' and i + 1 < len(line):
+            cur.append(line[i + 1]); i += 2; continue
+        if c == ':':
+            fields.append(''.join(cur)); cur = []
+        else:
+            cur.append(c)
+        i += 1
+    fields.append(''.join(cur))
+    return fields
+
+
+def key_mgmt_for(security):
+    """Map nmcli SECURITY text to keyfile key-mgmt (None = open network)."""
+    s = (security or '').upper()
+    if not s or s == '--':
+        return None
+    if '802.1X' in s:
+        raise WifiError('Enterprise (802.1X) Wi-Fi is not supported on the kiosk')
+    if 'WPA' not in s:
+        raise WifiError('This Wi-Fi uses old WEP security, which is not supported')
+    tokens = s.replace('/', ' ').split()
+    if 'WPA3' in tokens and not ({'WPA1', 'WPA2', 'WPA'} & set(tokens)):
+        return 'sae'          # WPA3-only
+    return 'wpa-psk'          # WPA/WPA2, and WPA2/WPA3 transition mode
+
+
+def scan_security(ssid):
+    """Return (found, security) for the strongest AP with this SSID."""
+    p = run([NMCLI, '-t', '-f', 'SSID,SIGNAL,SECURITY', 'device', 'wifi', 'list',
+             'ifname', IFACE, '--rescan', 'auto'], check=False, timeout=30)
+    best = None
+    for line in p.stdout.splitlines():
+        f = split_terse(line)
+        if len(f) != 3 or f[0] != ssid:
+            continue
+        try:
+            sig = int(f[1])
+        except ValueError:
+            sig = 0
+        if best is None or sig > best[0]:
+            best = (sig, f[2])
+    return (best is not None), (best[1] if best else '')
+
+
+# ---------- keyfile ----------
+
+def kf_escape(value):
+    """GKeyFile string escaping as written by NetworkManager (';' is literal)."""
+    out = value.replace('\\', '\\\\')
+    if out.startswith(' '):
+        out = '\\s' + out[1:]
+    return out
+
+
+def kf_ssid(ssid):
+    """Plain text when unambiguous, else NM's byte-list form (72;105;...;)."""
+    if re.fullmatch(r'[!-~]([ -~]*[!-~])?', ssid) and not re.search(r'[;\\]', ssid) \
+            and not re.fullmatch(r'[0-9;]+', ssid):
+        return ssid
+    return ''.join(f'{b};' for b in ssid.encode('utf-8'))
+
+
+def build_keyfile(ssid, con_uuid, key_mgmt, password, hidden):
+    lines = [
+        '[connection]', f'id={kf_escape(ssid)}', f'uuid={con_uuid}', 'type=wifi',
+        f'interface-name={IFACE}', 'autoconnect=true', '',
+        '[wifi]', 'mode=infrastructure', f'ssid={kf_ssid(ssid)}',
+    ]
+    if hidden:
+        lines.append('hidden=true')
+    lines.append('')
+    if key_mgmt:
+        lines += ['[wifi-security]', f'key-mgmt={key_mgmt}', f'psk={kf_escape(password)}', '']
+    lines += ['[ipv4]', 'method=auto', '', '[ipv6]', 'addr-gen-mode=default', 'method=auto', '']
+    return '\n'.join(lines)
+
+
+def wifi_connections_with_ssid(ssid, exclude_uuid):
+    p = run([NMCLI, '-t', '-f', 'UUID,TYPE', 'connection', 'show'], check=False)
+    out = []
+    for line in p.stdout.splitlines():
+        f = split_terse(line)
+        if len(f) == 2 and f[1] == '802-11-wireless' and f[0] != exclude_uuid:
+            q = run([NMCLI, '-g', '802-11-wireless.ssid', 'connection', 'show', 'uuid', f[0]], check=False)
+            if q.stdout.strip().replace('\\:', ':').replace('\\\\', '\\') == ssid:
+                out.append(f[0])
+    return out
+
+
+# ---------- commands ----------
+
+def read_password_stdin():
+    if sys.stdin is None or sys.stdin.isatty():
+        return ''
+    data = sys.stdin.read(4096)
+    return data[:-1] if data.endswith('\n') else data
+
+
+def connect(argv):
+    dry_run = bool(argv) and argv[0] == '--dry-run'
+    if dry_run:
+        argv = argv[1:]
+    if not argv:
+        raise WifiError('SSID required')
+    ssid = validate_ssid(argv[0])
+    password = argv[1] if len(argv) > 1 else read_password_stdin()
+
+    if not dry_run:
+        radio_on()
+    found, security = scan_security(ssid)
+    if found:
+        key_mgmt = key_mgmt_for(security)
+    else:
+        key_mgmt = 'wpa-psk' if password else None   # hidden network
+    if key_mgmt and not password:
+        raise WifiError(f'Password required for {ssid}')
+    if key_mgmt:
+        validate_password(password, key_mgmt)
+
+    con_uuid = str(uuid.uuid4())
+    keyfile = build_keyfile(ssid, con_uuid, key_mgmt, password, hidden=not found)
+
+    # Let NetworkManager's own parser check the file before it goes live.
+    check = run([NMCLI, '--offline', 'connection', 'modify', 'connection.autoconnect', 'yes'],
+                check=False, stdin_text=keyfile)
+    if check.returncode != 0:
+        raise WifiError('Could not build Wi-Fi profile: ' + (check.stderr or '').strip())
+
+    if dry_run:
+        print(f'DRY RUN ok: ssid={ssid!r} found={found} security={security or "open"} '
+              f'key_mgmt={key_mgmt or "none"} password_len={len(password)}')
+        return
+
+    path = os.path.join(CONN_DIR, f'thermal-guard-{con_uuid}.nmconnection')
+    os.makedirs(CONN_DIR, mode=0o700, exist_ok=True)
+    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    with os.fdopen(fd, 'w') as fh:
+        fh.write(keyfile)
+
+    try:
+        run([NMCLI, 'connection', 'load', path])
+        run([NMCLI, '--wait', str(CONNECT_WAIT_SECONDS), 'connection', 'up', 'uuid', con_uuid,
+             'ifname', IFACE], timeout=CONNECT_WAIT_SECONDS + 15)
+    except Exception:
+        # Wrong password / out of range: remove the new profile, keep the old ones.
+        run([NMCLI, 'connection', 'delete', 'uuid', con_uuid], check=False)
+        if os.path.exists(path):
+            os.remove(path)
+            run([NMCLI, 'connection', 'reload'], check=False)
+        raise
+
+    # Connected: older profiles for the same network are now superseded.
+    for old in wifi_connections_with_ssid(ssid, con_uuid):
+        run([NMCLI, 'connection', 'delete', 'uuid', old], check=False)
+    print(f'Connected to {ssid}')
+
+
+def main(argv):
+    cmd = argv[0] if argv else ''
+    try:
+        if cmd == 'on':
+            radio_on()
+        elif cmd == 'off':
+            run([NMCLI, 'radio', 'wifi', 'off'])
+        elif cmd == 'connect':
+            connect(argv[1:])
+        else:
+            print('Usage: thermal-guard-wifi on|off|connect [--dry-run] SSID  (password on stdin)',
+                  file=sys.stderr)
+            return 2
+    except WifiError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+    except subprocess.TimeoutExpired:
+        print('Wi-Fi command timed out', file=sys.stderr)
+        return 1
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main(sys.argv[1:]))

@@ -1,0 +1,11 @@
+fastapi>=0.115,<1
+uvicorn[standard]>=0.34,<1
+firebase-admin>=6.5,<8
+adafruit-blinka>=8.50
+adafruit-circuitpython-sht31d>=2.3
+adafruit-circuitpython-tca9548a>=0.8
+pyserial>=3.5
+psutil>=6,<8
+python-dotenv>=1,<2
+gpiozero==2.0.1.post3
+gpiod>=2.2.2,<3

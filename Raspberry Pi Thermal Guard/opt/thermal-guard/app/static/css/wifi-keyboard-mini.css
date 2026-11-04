@@ -1,0 +1,154 @@
+/* THERMAL GUARD RESPONSIVE WIFI KEYBOARD */
+
+#tgWifiKeyboard{
+  width:min(760px,96vw) !important;
+  max-width:96vw !important;
+  max-height:min(44vh,360px) !important;
+
+  left:50% !important;
+  bottom:clamp(4px,1vh,12px) !important;
+
+  padding:clamp(5px,1vw,10px) !important;
+
+  border-radius:clamp(12px,2vw,20px) !important;
+
+  overflow:auto !important;
+
+  transform:
+    translateX(-50%)
+    translateY(120%) !important;
+}
+
+#tgWifiKeyboard.open{
+  transform:
+    translateX(-50%)
+    translateY(0) !important;
+}
+
+#tgWifiKeyboard .tg-kb-top{
+  gap:6px !important;
+  margin-bottom:5px !important;
+}
+
+#tgWifiKeyboard .tg-kb-title{
+  font-size:clamp(13px,2vw,17px) !important;
+}
+
+#tgWifiKeyboard .tg-kb-subtitle{
+  display:none !important;
+}
+
+#tgWifiKeyboard .tg-kb-preview{
+  gap:5px !important;
+  margin-bottom:5px !important;
+}
+
+#tgWifiKeyboard .tg-kb-preview input{
+  height:clamp(30px,5.5vh,40px) !important;
+  min-height:30px !important;
+
+  font-size:clamp(13px,2vw,17px) !important;
+
+  padding:
+    0 clamp(8px,1.5vw,13px) !important;
+
+  border-radius:9px !important;
+}
+
+#tgWifiKeyboard .tg-kb-eye{
+  width:clamp(38px,7vw,48px) !important;
+  min-width:38px !important;
+
+  height:clamp(30px,5.5vh,40px) !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  padding:0 !important;
+
+  border-radius:9px !important;
+}
+
+#tgWifiKeyboard .tg-kb-eye svg{
+  width:20px !important;
+  height:20px !important;
+  pointer-events:none !important;
+}
+
+#tgWifiKeyboard .tg-kb-row{
+  display:flex !important;
+  width:100% !important;
+
+  gap:clamp(3px,.7vw,6px) !important;
+  margin:clamp(2px,.5vh,5px) 0 !important;
+}
+
+#tgWifiKeyboard .tg-kb-key{
+  flex:1 1 0 !important;
+  min-width:0 !important;
+
+  height:clamp(27px,5vh,40px) !important;
+  min-height:27px !important;
+
+  padding:0 3px !important;
+
+  font-size:clamp(11px,1.8vw,15px) !important;
+
+  line-height:1 !important;
+
+  border-radius:clamp(6px,1vw,9px) !important;
+}
+
+#tgWifiKeyboard .tg-kb-space{
+  flex:3.5 1 0 !important;
+}
+
+#tgWifiKeyboard .tg-kb-wide{
+  flex:1.45 1 0 !important;
+}
+
+/* keep Wi-Fi dialog visible above keyboard */
+#tgWifiPanel,
+.wifi-panel,
+.wifi-settings,
+.settings-content{
+  max-height:calc(100vh - 10px) !important;
+  overflow:auto !important;
+}
+
+/* SMALL LCD */
+@media (max-height:650px){
+  #tgWifiKeyboard{
+    /* 40vh (192px on the 800x480 screen) cut off the bottom row - Shift, Space,
+       Backspace, Clear and Done - because the keyboard needs ~262px. Allow up to
+       the screen height; scroll only as a last resort. */
+    max-height:calc(100vh - 20px) !important;
+    overflow-y:auto !important;
+    width:97vw !important;
+    padding:5px !important;
+  }
+
+  #tgWifiKeyboard .tg-kb-key{
+    height:26px !important;
+    min-height:26px !important;
+    font-size:11px !important;
+  }
+
+  #tgWifiKeyboard .tg-kb-preview input,
+  #tgWifiKeyboard .tg-kb-eye{
+    height:29px !important;
+  }
+}
+
+/* PORTRAIT */
+@media (orientation:portrait){
+  #tgWifiKeyboard{
+    width:97vw !important;
+    max-height:38vh !important;
+  }
+
+  #tgWifiKeyboard .tg-kb-key{
+    font-size:clamp(10px,2.5vw,14px) !important;
+  }
+}

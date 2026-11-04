@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="@drawable/bg_app_main" android:paddingHorizontal="18dp" tools:context=".ui.AlertsFragment" tools:showIn="@layout/activity_main">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="72dp" android:gravity="center_vertical" android:orientation="horizontal">
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Alerts" android:textColor="@color/tg_text" android:textSize="27sp" android:textStyle="bold"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Warnings, critical events and recovery" android:textColor="@color/tg_muted" android:textSize="12sp"/>
+        </LinearLayout>
+        <ImageView android:layout_width="46dp" android:layout_height="46dp" android:background="@drawable/bg_icon_circle" android:contentDescription="Alerts" android:padding="12dp" android:src="@drawable/ic_bell" app:tint="@color/tg_blue_2"/>
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" app:cardBackgroundColor="@color/tg_surface_2" app:cardCornerRadius="18dp" app:strokeColor="@color/tg_border" app:strokeWidth="1dp">
+        <com.google.android.material.tabs.TabLayout android:id="@+id/tabs" android:layout_width="match_parent" android:layout_height="50dp" app:tabIndicatorColor="@color/tg_blue_2" app:tabIndicatorFullWidth="false" app:tabSelectedTextColor="@color/tg_text" app:tabTextColor="@color/tg_muted"/>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/tvAlertsHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:text="Newest 100 alerts are kept"
+        android:textColor="@color/tg_muted"
+        android:textSize="11sp"/>
+
+    <TextView android:id="@+id/emptyText" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:gravity="center" android:text="No alerts to show" android:textColor="@color/tg_muted" android:textSize="14sp" android:visibility="gone"/>
+
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/alertList" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:clipToPadding="false" android:paddingTop="12dp" android:paddingBottom="18dp" tools:listitem="@layout/item_alert" tools:itemCount="4"/>
+</LinearLayout>

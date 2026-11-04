@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp" app:cardBackgroundColor="@color/tg_surface_2" app:cardCornerRadius="18dp" app:strokeColor="@color/tg_border" app:strokeWidth="1dp">
+  <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
+      <TextView android:id="@+id/tvInitials" android:layout_width="48dp" android:layout_height="48dp" android:background="@drawable/bg_icon_circle_primary" android:gravity="center" android:text="TG" android:textColor="@color/tg_blue_2" android:textSize="14sp" android:textStyle="bold"/>
+      <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="13dp" android:layout_weight="1" android:orientation="vertical">
+        <TextView android:id="@+id/tvName" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/tg_text" android:textSize="16sp" android:textStyle="bold" tools:text="Juan Dela Cruz"/>
+        <TextView android:id="@+id/tvEmail" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:textColor="@color/tg_muted" android:textSize="12sp" tools:text="juan.delacruz@rsu.edu.ph"/>
+      </LinearLayout>
+    </LinearLayout>
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginVertical="12dp" android:background="@color/tg_border"/>
+    <LinearLayout android:id="@+id/detailRows" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"/>
+    <LinearLayout android:id="@+id/actionRow" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:orientation="horizontal">
+      <com.google.android.material.button.MaterialButton android:id="@+id/btnEdit" android:layout_width="0dp" android:layout_height="44dp" android:layout_weight="1" android:text="Edit" android:textAllCaps="false" android:textColor="@color/tg_blue_2" app:backgroundTint="@color/tg_surface_3" app:cornerRadius="12dp"/>
+      <Space android:id="@+id/spacerEdit" android:layout_width="7dp" android:layout_height="1dp"/>
+      <com.google.android.material.button.MaterialButton android:id="@+id/btnSecondary" android:layout_width="0dp" android:layout_height="44dp" android:layout_weight="1" android:text="Remove" android:textAllCaps="false" android:textColor="@color/tg_red" app:backgroundTint="@color/tg_red_dark" app:cornerRadius="12dp"/>
+      <Space android:layout_width="7dp" android:layout_height="1dp"/>
+      <com.google.android.material.button.MaterialButton android:id="@+id/btnPrimary" android:layout_width="0dp" android:layout_height="44dp" android:layout_weight="1" android:text="Enable" android:textAllCaps="false" android:textColor="@color/tg_green" app:backgroundTint="@color/tg_green_dark" app:cornerRadius="12dp"/>
+    </LinearLayout>
+  </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

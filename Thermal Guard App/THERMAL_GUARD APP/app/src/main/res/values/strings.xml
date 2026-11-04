@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Thermal Guard</string>
+    <string name="login_title">THERMAL GUARD</string>
+    <string name="login_subtitle">Smart Temperature Monitoring\nand Alert System</string>
+    <string name="google_sign_in">Continue with Google</string>
+    <string name="terms">By continuing, you agree to our\nTerms of Service and Privacy Policy</string>
+    <string name="google_sign_in_failed">Google Sign-In failed</string>
+    <string name="google_sign_in_cancelled">Google Sign-In cancelled</string>
+
+    <string name="login_brand_thermal">Thermal</string>
+    <string name="login_brand_guard">Guard</string>
+    <string name="login_brand_subtitle">Smart temperature and humidity monitoring</string>
+    <string name="login_slogan">SAFER\nPEOPLE\nHEALTHIER\nTOMORROW</string>
+    <string name="login_hero_line1">Monitor today</string>
+    <string name="login_hero_line2">for a safer</string>
+    <string name="login_hero_line3">tomorrow</string>
+    <string name="login_feature_temperature">Temperature\nMonitoring</string>
+    <string name="login_feature_humidity">Humidity\nTracking</string>
+    <string name="login_feature_alerts">Real-time\nAlerts</string>
+    <string name="login_welcome">Welcome Back</string>
+    <string name="login_continue">Sign in to continue to Thermal Guard</string>
+    <string name="login_email_hint">you@company.com</string>
+    <string name="login_password_hint">Enter your password</string>
+    <string name="login_forgot_password">Forgot Password?</string>
+    <string name="login_sign_in">Sign In</string>
+    <string name="login_or">OR</string>
+    <string name="login_google">Continue with Google</string>
+    <string name="login_new_user">New to Thermal Guard?</string>
+    <string name="login_register_staff">Register as Staff  →</string>
+    <string name="login_admin_approval">Staff accounts require admin approval.</string>
+    <string name="login_secure_access">Secure access for Admin and Staff</string>
+    <string name="login_footer">MONITOR  •  PROTECT  •  A HEALTHIER TOMORROW</string>
+    <string name="login_live_placeholder">--.-°C</string>
+    <string name="login_humidity_placeholder">--%</string>
+    <string name="login_normal_range">Live after sign-in</string>
+
+</resources>

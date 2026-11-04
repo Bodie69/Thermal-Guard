@@ -1,0 +1,800 @@
+:root{
+  --bg:#06101e;
+  --bg2:#071523;
+  --panel:#0b1b2c;
+  --panel2:#0d2237;
+  --line:#173a56;
+  --line2:#1d5273;
+  --text:#f6f9ff;
+  --muted:#7f9fc4;
+  --cyan:#28b9ff;
+  --cyan2:#62d4ff;
+  --green:#2ef080;
+  --amber:#ffb21a;
+  --red:#ff5065;
+  --violet:#b06df5;
+}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;padding:0;overflow:hidden}
+html{background:var(--bg)}
+body{
+  background:
+    radial-gradient(circle at 2% 0%,rgba(0,139,212,.13),transparent 28%),
+    radial-gradient(circle at 76% 88%,rgba(0,115,205,.07),transparent 32%),
+    linear-gradient(180deg,#06101e,#06111e 62%,#06101e);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+button,input{font:inherit}
+button{color:inherit}
+svg{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
+
+.shell{
+  width:100vw;
+  height:100vh;
+  min-width:0;
+  min-height:0;
+  padding:11px 17px 12px;
+  display:grid;
+  grid-template-rows:70px minmax(0,1fr) 78px;
+  gap:11px;
+  overflow:hidden;
+  transform-origin:top left;
+}
+.topbar{min-width:0;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.brand{min-width:300px;display:flex;align-items:center;gap:13px}
+.brand-mark{width:60px;height:66px;flex:0 0 auto;filter:drop-shadow(0 0 12px rgba(39,182,255,.18))}
+.brand-mark svg{width:100%;height:100%}
+.brand-copy{min-width:0}
+.brand h1{margin:0;white-space:nowrap;font-size:25px;line-height:1;font-weight:900;letter-spacing:.015em}
+.brand h1 span{color:#2ca7ff;text-shadow:0 0 12px rgba(44,167,255,.14)}
+.brand p{margin:7px 0 0;color:#7ea6d2;font-size:10.5px;letter-spacing:.01em}
+
+.header-status{min-width:0;display:flex;align-items:center;justify-content:flex-end;gap:8px}
+.status-card{
+  height:49px;min-width:95px;padding:5px 8px;display:flex;align-items:center;gap:7px;
+  border:1px solid #173e5b;border-radius:11px;background:linear-gradient(145deg,rgba(9,29,47,.95),rgba(8,22,36,.95));
+  box-shadow:inset 0 0 24px rgba(34,137,205,.025);
+}
+.status-card.clickable{cursor:pointer}
+.status-icon{width:36px;height:36px;flex:0 0 36px;display:grid;place-items:center;border:1px solid #174662;border-radius:9px;background:#09233a;color:#36baff}
+.status-icon svg{width:24px;height:24px;stroke-width:2}
+.status-copy{min-width:0}
+.status-card small{display:block;color:#87a8cf;font-size:9px;line-height:1}
+.status-card strong{display:flex;align-items:center;gap:5px;margin-top:5px;font-size:9.5px;white-space:nowrap}
+.dot{width:7px;height:7px;display:inline-block;border-radius:50%}
+.dot.green{background:var(--green);box-shadow:0 0 8px rgba(46,240,128,.56)}
+.dot.amber{background:var(--amber);box-shadow:0 0 8px rgba(255,178,26,.35)}
+.dot.red{background:var(--red);box-shadow:0 0 8px rgba(255,80,101,.4)}
+
+.time-block{
+  height:50px;min-width:128px;padding:3px 12px 3px 13px;border-left:1px solid #587087;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.time-block small{display:block;color:#91b0d5;font-size:9px;white-space:nowrap}
+.time-block strong{display:block;margin-top:3px;font-size:19px;line-height:1;white-space:nowrap}
+.gear-btn{
+  width:45px;height:45px;display:grid;place-items:center;border:1px solid #00a8ff;border-radius:11px;background:linear-gradient(145deg,#0b2a44,#0b2034);
+  box-shadow:0 0 15px rgba(0,168,255,.28),inset 0 0 10px rgba(36,182,255,.05);cursor:pointer;
+}
+.gear-btn svg{width:26px;height:26px;color:#b5e3ff;stroke-width:1.8}
+
+.zones{min-width:0;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;overflow:hidden}
+.zone-card{
+  --zone:#28c2ff;--zone-soft:rgba(40,194,255,.18);
+  position:relative;min-width:0;min-height:0;padding:16px 14px 14px;overflow:hidden;
+  border:1px solid #17435f;border-radius:18px;background:
+    radial-gradient(circle at 26% 30%,rgba(17,88,127,.09),transparent 34%),
+    linear-gradient(155deg,rgba(9,31,49,.98),rgba(7,19,32,.995));
+  box-shadow:inset 0 0 28px rgba(33,136,194,.025),0 10px 28px rgba(0,0,0,.12);
+}
+.zone-card.normal{--zone:#25c5ff;--zone-soft:rgba(28,196,255,.18)}
+.zone-card.warning{--zone:var(--amber);--zone-soft:rgba(255,178,26,.18)}
+.zone-card.critical{--zone:var(--red);--zone-soft:rgba(255,80,101,.18)}
+.zone-card.offline{--zone:#7690a8;--zone-soft:rgba(118,144,168,.13)}
+.zone-head{min-width:0;display:grid;grid-template-columns:46px minmax(0,1fr) auto;align-items:center;gap:10px}
+.zone-icon{
+  width:46px;height:46px;display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--zone) 55%,transparent);
+  border-radius:12px;background:var(--zone-soft);color:var(--zone);
+}
+.zone-icon.front{color:#b46ef4;background:rgba(131,65,209,.18);border-color:rgba(151,86,229,.35)}
+.zone-icon svg{width:25px;height:25px;stroke-width:1.9}
+.zone-title{min-width:0}
+.zone-title h2{margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px;line-height:1.08}
+.zone-title p{margin:5px 0 0;color:#7295bd;font-size:9.5px}
+.badge{
+  padding:6px 8px;display:inline-flex;align-items:center;gap:5px;border:1px solid color-mix(in srgb,var(--zone) 74%,transparent);
+  border-radius:999px;background:var(--zone-soft);color:var(--zone);font-size:8.5px;font-weight:800;white-space:nowrap;
+}
+.badge i{width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px color-mix(in srgb,currentColor 55%,transparent)}
+.measurement{display:flex;align-items:center;gap:8px;min-width:0}
+.measurement svg{width:31px;height:31px;flex:0 0 31px;color:var(--zone);stroke-width:2}
+.measurement.temp{margin-top:25px}
+.measurement.temp strong{font-size:50px;line-height:.94;letter-spacing:-.035em;color:#f7f9ff;text-shadow:0 2px 0 rgba(0,0,0,.1)}
+.measurement.temp span{color:#7e9dc4;font-size:19px}
+.measurement.humidity{margin-top:22px}
+.measurement.humidity svg{color:#25baff}
+.measurement.humidity strong{font-size:31px;line-height:1;color:#f5f7fb}
+.measurement.humidity span{color:#7596bf;font-size:14px}
+.wave{
+  position:absolute;left:-4%;right:-4%;bottom:-17px;height:56px;border-radius:54% 46% 0 0/80% 80% 0 0;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--zone) 75%,transparent),color-mix(in srgb,var(--zone) 18%,transparent));
+  opacity:.74;transform:rotate(-2deg);
+}
+.zone-card.warning .measurement.temp svg,.zone-card.warning .measurement.humidity svg{color:var(--amber)}
+.zone-card.critical .measurement.temp svg{color:var(--red)}
+.zone-card.offline .measurement.temp strong,.zone-card.offline .measurement.humidity strong{color:#9aa9ba}
+
+.lower-cards{min-width:0;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.mini-card{
+  min-width:0;height:78px;padding:10px 17px;display:flex;align-items:center;justify-content:center;gap:15px;overflow:hidden;
+  border:1px solid #17405b;border-radius:15px;background:linear-gradient(145deg,#0b1b2c,#091724);color:var(--text);
+}
+button.mini-card{cursor:pointer}
+.mini-icon{width:50px;height:50px;flex:0 0 50px;display:grid;place-items:center;border-radius:12px;background:#12253b}
+.mini-icon svg{width:32px;height:32px;stroke-width:1.9}
+.mini-card small{display:block;color:#88a8cf;font-size:11px;font-weight:700;letter-spacing:.02em}
+.mini-card strong{display:block;margin-top:4px;font-size:20px;white-space:nowrap}
+.mini-card.siren{border-color:rgba(255,80,101,.42);background:linear-gradient(145deg,rgba(75,15,31,.50),rgba(12,21,33,.98))}
+.mini-card.siren .mini-icon,.mini-card.siren strong{color:var(--red)}
+.mini-card.siren.active{box-shadow:0 0 22px rgba(255,80,101,.20),inset 0 0 22px rgba(255,80,101,.07)}
+.mini-card.warning .mini-icon,.mini-card.warning strong{color:var(--amber)}
+.mini-card.warning .mini-icon{background:rgba(109,75,15,.25);border:1px solid rgba(255,178,26,.18)}
+.mini-card.critical .mini-icon,.mini-card.critical strong{color:var(--red)}
+.mini-card.critical .mini-icon{background:rgba(97,23,36,.30);border:1px solid rgba(255,80,101,.18)}
+
+.drawer-overlay{position:fixed;inset:0;z-index:90;visibility:hidden;background:rgba(0,0,0,.28);opacity:0;transition:opacity .18s}
+.drawer-overlay.open{visibility:visible;opacity:1}
+.wifi-drawer{
+  position:fixed;top:0;right:0;z-index:100;width:min(360px,100vw);height:100vh;padding:16px;overflow-y:auto;overscroll-behavior:contain;
+  transform:translateX(102%);border-left:1px solid #1b5478;background:linear-gradient(180deg,#081c2f,#081522 86%);box-shadow:-18px 0 42px rgba(0,0,0,.30);
+  transition:transform .22s ease;
+}
+.wifi-drawer.open{transform:translateX(0)}
+.drawer-header,.drawer-title,.wifi-switch-card,.list-head,.modal-head,.modal-actions{display:flex;align-items:center}
+.drawer-header,.list-head,.modal-head{justify-content:space-between}
+.drawer-title{gap:10px}
+.drawer-title-icon,.switch-icon{width:42px;height:42px;display:grid;place-items:center;border:1px solid #194c6b;border-radius:50%;background:#0b2338;color:#2eb8ff}
+.drawer-title-icon svg,.switch-icon svg{width:26px;height:26px;stroke-width:2.2}
+.drawer-header h2,.modal-head h2{margin:0;font-size:18px}
+.drawer-header p,.modal-head p{margin:4px 0 0;color:#78a1c9;font-size:10px}
+.icon-btn{width:34px;height:34px;display:grid;place-items:center;border:0;border-radius:8px;background:#0e2a42;color:#8ab7df;cursor:pointer}
+.icon-btn svg{width:19px;height:19px;stroke-width:2}
+.wifi-switch-card{margin-top:15px;padding:12px;border:1px solid #1b4b6b;border-radius:13px;background:#0d2438;gap:10px}
+.grow{flex:1;min-width:0}.grow strong{display:block;font-size:13px}.grow small{display:block;margin-top:3px;color:#789cc0;font-size:9px}
+.switch{position:relative;width:40px;height:22px;flex:0 0 auto}.switch input{position:absolute;opacity:0;pointer-events:none}.switch span{position:absolute;inset:0;border-radius:999px;background:#1a3a50;border:1px solid #28566e}
+.switch span:before{content:"";position:absolute;width:16px;height:16px;top:2px;left:2px;border-radius:50%;background:#fff;transition:.18s}.switch input:checked+span{background:#18aaf4}.switch input:checked+span:before{transform:translateX(18px)}
+.list-head{margin-top:15px}.list-head h3{margin:0;font-size:13px}
+.refresh-btn,.advanced-btn,.wifi-connect,.btn{border:1px solid #1c5277;border-radius:9px;background:#0f2b43;color:#d9efff;cursor:pointer}
+.refresh-btn{padding:7px 10px;display:flex;align-items:center;gap:5px;color:#33baff}.refresh-btn svg{width:16px;height:16px;stroke-width:2}
+.refresh-btn.loading svg{animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.wifi-list{margin-top:9px;display:grid;gap:6px}
+.wifi-row{
+  padding:8px;display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:7px;border:1px solid #194969;border-radius:10px;background:#0c2133;
+}
+.wifi-row.connected{background:linear-gradient(90deg,#0d4c7d,#0b3153);border-color:#1e72a6}
+.wifi-strength{color:#34bbff}.wifi-strength svg{width:21px;height:21px;stroke-width:2}
+.wifi-info{min-width:0}.wifi-info strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px}.wifi-meta{margin-top:2px;color:#7193b6;font-size:8px}
+.wifi-connect{padding:7px 10px;font-size:9px}.wifi-row.connected .wifi-connect{background:#20aef4;border-color:#2fbaff;color:#00131f}
+.advanced-btn{width:100%;margin-top:14px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center}
+.advanced-left{display:flex;align-items:center;gap:8px}.advanced-left svg{width:18px;height:18px;color:#83c8f4;stroke-width:1.8}
+.advanced-panel{display:none;margin-top:8px;padding:3px 0}.advanced-panel.open{display:block}.network-detail{padding:6px 2px;display:flex;justify-content:space-between;gap:10px;color:#83a6c6;font-size:9px}
+.empty-state{padding:18px 10px;text-align:center;color:#779abd;font-size:10px}
+
+.modal-backdrop{position:fixed;inset:0;z-index:200;visibility:hidden;background:rgba(0,0,0,.67);opacity:0;transition:.15s}.modal-backdrop.open{visibility:visible;opacity:1}
+.modal{
+  position:fixed;top:50%;left:50%;z-index:210;width:min(360px,92vw);max-height:92vh;padding:16px;overflow:auto;visibility:hidden;
+  transform:translate(-50%,-50%) scale(.96);border:1px solid #1b5478;border-radius:15px;background:#0b1b2d;box-shadow:0 18px 50px rgba(0,0,0,.44);opacity:0;transition:.15s;
+}
+.modal.open{visibility:visible;transform:translate(-50%,-50%) scale(1);opacity:1}
+.field-label{display:block;margin-top:13px;color:#84a6c7;font-size:10px}
+.password-field{margin-top:5px;display:flex;gap:5px}.password-field input{min-width:0;flex:1;padding:9px;border:1px solid #214e6b;border-radius:8px;background:#071521;color:white;outline:none}
+.password-field input:focus{border-color:#2faeff;box-shadow:0 0 0 2px rgba(47,174,255,.08)}
+.password-field button{width:42px;border:1px solid #214e6b;border-radius:8px;background:#10273b;color:#8fc7e9}.password-field button svg{width:20px;height:20px;stroke-width:1.8}
+.modal-actions{margin-top:13px;justify-content:flex-end;gap:7px}.btn{padding:8px 12px}.btn.primary{background:#169fe1;border-color:#20aef4;color:#001522}.btn.secondary{background:#10273b}
+.modal-message{margin-top:8px;min-height:14px;font-size:9px}.modal-message.error{color:var(--red)}.modal-message.success{color:var(--green)}
+.toast{position:fixed;left:50%;bottom:16px;z-index:300;transform:translateX(-50%) translateY(8px);visibility:hidden;opacity:0;padding:8px 13px;border-radius:9px;background:#10263b;color:#fff;font-size:10px;transition:.16s}
+.toast.show{visibility:visible;opacity:1;transform:translateX(-50%) translateY(0)}.toast.error{background:#511b29}
+.siren-menu{position:fixed;z-index:150;display:none;padding:5px;border:1px solid #1c5277;border-radius:9px;background:#0c1e30;box-shadow:0 12px 24px rgba(0,0,0,.35)}
+.siren-menu.open{display:flex}.siren-menu button{padding:7px 10px;border:0;background:transparent;color:white;cursor:pointer}.siren-menu button:hover{background:#153149;border-radius:7px}
+
+/* Primary Raspberry Pi LCD: 800x480 */
+@media (max-height:600px){
+  .shell{padding:7px 9px 9px;grid-template-rows:54px minmax(0,1fr) 62px;gap:7px}
+  .topbar{gap:8px}
+  .brand{min-width:220px;gap:8px}.brand-mark{width:43px;height:48px}.brand h1{font-size:19px}.brand p{margin-top:4px;font-size:8.8px}
+  .header-status{gap:5px}.status-card{height:40px;min-width:77px;padding:4px 6px;gap:5px}.status-icon{width:28px;height:28px;flex-basis:28px}.status-icon svg{width:19px;height:19px}
+  .status-card small{font-size:7px}.status-card strong{margin-top:3px;font-size:8px}.dot{width:6px;height:6px}
+  .time-block{height:40px;min-width:99px;padding:2px 8px}.time-block small{font-size:7px}.time-block strong{font-size:15px}.gear-btn{width:36px;height:36px}.gear-btn svg{width:21px;height:21px}
+  .zones{gap:7px}.zone-card{padding:10px 9px}.zone-head{grid-template-columns:36px minmax(0,1fr) auto;gap:6px}.zone-icon{width:36px;height:36px}.zone-icon svg{width:20px;height:20px}
+  .zone-title h2{font-size:11px}.zone-title p{margin-top:3px;font-size:7.8px}.badge{padding:4px 6px;font-size:7px}.badge i{width:5px;height:5px}
+  .measurement{gap:6px}.measurement svg{width:24px;height:24px;flex-basis:24px}.measurement.temp{margin-top:12px}.measurement.temp strong{font-size:36px}.measurement.temp span{font-size:14px}
+  .measurement.humidity{margin-top:11px}.measurement.humidity strong{font-size:23px}.measurement.humidity span{font-size:10px}.wave{height:38px;bottom:-14px}
+  .lower-cards{gap:7px}.mini-card{height:62px;padding:7px 10px;gap:9px}.mini-icon{width:38px;height:38px;flex-basis:38px}.mini-icon svg{width:25px;height:25px}
+  .mini-card small{font-size:9px}.mini-card strong{font-size:15px}
+  .wifi-drawer{width:min(320px,100vw);padding:11px}.drawer-header h2{font-size:15px}.wifi-switch-card{margin-top:10px;padding:9px}.list-head{margin-top:10px}.wifi-row{padding:6px}.advanced-btn{margin-top:9px;padding:8px}
+}
+
+/* Smaller landscape LCDs */
+@media (max-width:700px){
+  .shell{padding:5px 6px;grid-template-rows:48px minmax(0,1fr) 56px;gap:5px}
+  .brand{min-width:148px}.brand-mark{width:35px;height:39px}.brand h1{font-size:14.5px}.brand p{font-size:7px}
+  .header-status{gap:3px}.status-card{min-width:58px;height:35px;padding:4px}.status-icon{display:none}.status-card small{font-size:6.5px}.status-card strong{font-size:7px}
+  .time-block{min-width:76px;height:35px;padding:2px 5px}.time-block small{font-size:6px}.time-block strong{font-size:11px}.gear-btn{width:31px;height:31px}
+  .zone-card{padding:7px 6px}.zone-head{grid-template-columns:29px minmax(0,1fr) auto;gap:4px}.zone-icon{width:29px;height:29px}.zone-icon svg{width:17px;height:17px}
+  .zone-title h2{font-size:8.5px}.zone-title p{font-size:6.5px}.badge{font-size:6px;padding:3px 4px}
+  .measurement.temp{margin-top:7px}.measurement.temp strong{font-size:28px}.measurement.temp span{font-size:10px}.measurement.humidity{margin-top:6px}.measurement.humidity strong{font-size:18px}.measurement.humidity span{font-size:7px}.measurement svg{display:none}
+  .lower-cards{gap:4px}.mini-card{height:56px;padding:5px 6px;gap:6px}.mini-icon{width:31px;height:31px;flex-basis:31px}.mini-icon svg{width:20px;height:20px}.mini-card small{font-size:7px}.mini-card strong{font-size:11px}
+}
+
+/* Very narrow / portrait: preserve all core data, drawer becomes full screen */
+@media (max-width:520px) and (orientation:portrait){
+  .shell{grid-template-rows:48px minmax(0,1fr) 54px}
+  .brand{min-width:0}.brand p{display:none}.brand h1{font-size:13px}
+  .header-status .status-card:nth-of-type(2),.header-status .status-card:nth-of-type(3){display:none}
+  .time-block{min-width:66px}
+  .zones{gap:3px}.zone-title p,.badge{display:none}.zone-head{grid-template-columns:25px minmax(0,1fr)}.zone-icon{width:25px;height:25px}.zone-icon svg{width:15px;height:15px}
+  .measurement.temp strong{font-size:22px}.measurement.temp span{font-size:9px}.measurement.humidity strong{font-size:15px}.measurement.humidity span{font-size:7px}
+  .lower-cards{gap:3px}.mini-card{padding:4px}.mini-icon{display:none}.mini-card strong{font-size:9px}
+  .wifi-drawer{width:100vw}
+}
+
+
+/* ============================================================
+   V10.1 STATUS MOTION + CENTERED TEMPERATURE
+   ============================================================ */
+
+/* NORMAL = GREEN card */
+.zone-card.normal {
+  --zone: #2ef080 !important;
+  --zone-soft: rgba(46, 240, 128, .16) !important;
+  border-color: rgba(46, 240, 128, .58) !important;
+  background:
+    radial-gradient(circle at 25% 28%, rgba(46, 240, 128, .10), transparent 36%),
+    linear-gradient(155deg, rgba(8, 39, 38, .98), rgba(7, 20, 31, .995)) !important;
+  box-shadow:
+    inset 0 0 28px rgba(46, 240, 128, .05),
+    0 0 16px rgba(46, 240, 128, .08),
+    0 10px 28px rgba(0, 0, 0, .12) !important;
+}
+
+/* Keep temperature group centered inside every sensor card */
+.measurement.temp {
+  width: 100% !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Humidity remains balanced below the centered temperature */
+.measurement.humidity {
+  width: 100% !important;
+  justify-content: center !important;
+}
+
+/* WARNING = amber heartbeat */
+.zone-card.warning {
+  border-color: rgba(255, 178, 26, .72) !important;
+  animation: thermal-warning-heartbeat 1.65s ease-in-out infinite;
+}
+
+/* CRITICAL = stronger red heartbeat */
+.zone-card.critical {
+  border-color: rgba(255, 80, 101, .82) !important;
+  animation: thermal-critical-heartbeat 1.08s ease-in-out infinite;
+}
+
+@keyframes thermal-warning-heartbeat {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow:
+      inset 0 0 26px rgba(255, 178, 26, .04),
+      0 0 8px rgba(255, 178, 26, .08);
+  }
+
+  12% {
+    transform: scale(1.012);
+    box-shadow:
+      inset 0 0 30px rgba(255, 178, 26, .10),
+      0 0 22px rgba(255, 178, 26, .28);
+  }
+
+  24% {
+    transform: scale(1);
+    box-shadow:
+      inset 0 0 26px rgba(255, 178, 26, .04),
+      0 0 10px rgba(255, 178, 26, .12);
+  }
+
+  36% {
+    transform: scale(1.008);
+    box-shadow:
+      inset 0 0 28px rgba(255, 178, 26, .08),
+      0 0 17px rgba(255, 178, 26, .20);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+}
+
+@keyframes thermal-critical-heartbeat {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow:
+      inset 0 0 28px rgba(255, 80, 101, .06),
+      0 0 12px rgba(255, 80, 101, .12);
+  }
+
+  10% {
+    transform: scale(1.018);
+    box-shadow:
+      inset 0 0 34px rgba(255, 80, 101, .16),
+      0 0 30px rgba(255, 80, 101, .40);
+  }
+
+  20% {
+    transform: scale(1);
+    box-shadow:
+      inset 0 0 28px rgba(255, 80, 101, .06),
+      0 0 14px rgba(255, 80, 101, .16);
+  }
+
+  30% {
+    transform: scale(1.012);
+    box-shadow:
+      inset 0 0 32px rgba(255, 80, 101, .13),
+      0 0 24px rgba(255, 80, 101, .32);
+  }
+
+  44% {
+    transform: scale(1);
+  }
+}
+
+/* Keep animated cards clipped safely inside the kiosk viewport */
+.zones {
+  padding: 2px !important;
+}
+
+/* Accessibility: stop movement if reduced motion is requested */
+@media (prefers-reduced-motion: reduce) {
+  .zone-card.warning,
+  .zone-card.critical {
+    animation: none !important;
+  }
+}
+
+
+/* ============================================================
+   V10.2 SENIOR UI POLISH
+   - Temperature is physically centered in each sensor card
+   - OFFLINE has its own blue-slate visual identity
+   - Cleaner status hierarchy and smoother transitions
+   ============================================================ */
+
+/* The card becomes a real 3-row layout:
+   header / centered temperature / lower humidity */
+.zone-card {
+  display: grid !important;
+  grid-template-rows: auto minmax(0, 1fr) auto !important;
+  align-items: stretch !important;
+  transition:
+    border-color .22s ease,
+    box-shadow .22s ease,
+    background .22s ease,
+    transform .12s ease !important;
+}
+
+/* Header always stays at the top */
+.zone-head {
+  position: relative;
+  z-index: 3;
+  align-self: start;
+}
+
+/* Put the temperature in the physical visual center of the card */
+.measurement.temp {
+  position: relative !important;
+  z-index: 3;
+  align-self: center !important;
+  justify-self: center !important;
+
+  width: auto !important;
+  max-width: 100% !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  text-align: center !important;
+}
+
+/* Keep the temperature number as the focal point */
+.measurement.temp strong {
+  font-variant-numeric: tabular-nums;
+  text-align: center !important;
+}
+
+/* Humidity sits cleanly below the centered temperature */
+.measurement.humidity {
+  position: relative !important;
+  z-index: 3;
+  align-self: end !important;
+  justify-self: center !important;
+
+  width: auto !important;
+  max-width: 100% !important;
+
+  margin: 0 0 30px !important;
+  padding: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* ============================================================
+   NORMAL — calm green, no distracting motion
+   ============================================================ */
+.zone-card.normal {
+  --zone: #2ef080 !important;
+  --zone-soft: rgba(46, 240, 128, .15) !important;
+
+  border-color: rgba(46, 240, 128, .58) !important;
+
+  background:
+    radial-gradient(
+      circle at 50% 48%,
+      rgba(46, 240, 128, .07),
+      transparent 35%
+    ),
+    linear-gradient(
+      155deg,
+      rgba(8, 38, 37, .985),
+      rgba(7, 19, 31, .995)
+    ) !important;
+
+  box-shadow:
+    inset 0 0 30px rgba(46, 240, 128, .045),
+    0 0 14px rgba(46, 240, 128, .07),
+    0 10px 28px rgba(0, 0, 0, .12) !important;
+}
+
+.zone-card.normal .measurement.temp svg,
+.zone-card.normal .measurement.humidity svg {
+  color: #2ef080 !important;
+}
+
+.zone-card.normal .badge {
+  color: #2ef080 !important;
+  border-color: rgba(46, 240, 128, .58) !important;
+  background: rgba(46, 240, 128, .12) !important;
+}
+
+/* ============================================================
+   OFFLINE — distinctive cool blue/slate state
+   No heartbeat; clearly different from NORMAL.
+   ============================================================ */
+.zone-card.offline {
+  --zone: #6f91ad !important;
+  --zone-soft: rgba(95, 128, 157, .14) !important;
+
+  opacity: 1 !important;
+
+  border-color: rgba(92, 132, 164, .50) !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(112, 148, 178, .028) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(112, 148, 178, .028) 50%,
+      rgba(112, 148, 178, .028) 75%,
+      transparent 75%,
+      transparent
+    ),
+    radial-gradient(
+      circle at 50% 48%,
+      rgba(100, 145, 181, .09),
+      transparent 38%
+    ),
+    linear-gradient(
+      155deg,
+      rgba(12, 28, 42, .99),
+      rgba(8, 18, 29, .997)
+    ) !important;
+
+  background-size:
+    18px 18px,
+    auto,
+    auto !important;
+
+  box-shadow:
+    inset 0 0 28px rgba(86, 126, 158, .05),
+    0 0 12px rgba(86, 126, 158, .05),
+    0 10px 28px rgba(0, 0, 0, .12) !important;
+}
+
+.zone-card.offline .zone-icon {
+  color: #7ca6c7 !important;
+  border-color: rgba(124, 166, 199, .40) !important;
+  background: rgba(91, 129, 159, .13) !important;
+}
+
+.zone-card.offline .badge {
+  color: #8fb3cf !important;
+  border-color: rgba(111, 151, 182, .50) !important;
+  background: rgba(83, 121, 151, .15) !important;
+}
+
+.zone-card.offline .measurement.temp strong,
+.zone-card.offline .measurement.humidity strong {
+  color: #9cafbf !important;
+  text-shadow: none !important;
+}
+
+.zone-card.offline .measurement.temp span,
+.zone-card.offline .measurement.humidity span {
+  color: #6e879d !important;
+}
+
+.zone-card.offline .measurement.temp svg,
+.zone-card.offline .measurement.humidity svg {
+  color: #7399b7 !important;
+}
+
+.zone-card.offline .wave {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(99, 139, 170, .42),
+      rgba(70, 104, 132, .10)
+    ) !important;
+
+  opacity: .52 !important;
+}
+
+/* ============================================================
+   WARNING — amber heartbeat
+   ============================================================ */
+.zone-card.warning {
+  --zone: #ffb21a !important;
+  --zone-soft: rgba(255, 178, 26, .17) !important;
+
+  background:
+    radial-gradient(
+      circle at 50% 48%,
+      rgba(255, 178, 26, .08),
+      transparent 35%
+    ),
+    linear-gradient(
+      155deg,
+      rgba(45, 31, 9, .985),
+      rgba(10, 19, 29, .995)
+    ) !important;
+
+  border-color: rgba(255, 178, 26, .74) !important;
+
+  animation:
+    thermal-warning-heartbeat 1.65s ease-in-out infinite !important;
+}
+
+.zone-card.warning .badge {
+  color: #ffb21a !important;
+  border-color: rgba(255, 178, 26, .70) !important;
+  background: rgba(255, 178, 26, .14) !important;
+}
+
+/* ============================================================
+   CRITICAL — strong red heartbeat
+   ============================================================ */
+.zone-card.critical {
+  --zone: #ff5065 !important;
+  --zone-soft: rgba(255, 80, 101, .18) !important;
+
+  background:
+    radial-gradient(
+      circle at 50% 48%,
+      rgba(255, 80, 101, .10),
+      transparent 36%
+    ),
+    linear-gradient(
+      155deg,
+      rgba(47, 14, 24, .985),
+      rgba(12, 18, 29, .997)
+    ) !important;
+
+  border-color: rgba(255, 80, 101, .84) !important;
+
+  animation:
+    thermal-critical-heartbeat 1.08s ease-in-out infinite !important;
+}
+
+.zone-card.critical .badge {
+  color: #ff5065 !important;
+  border-color: rgba(255, 80, 101, .78) !important;
+  background: rgba(255, 80, 101, .15) !important;
+}
+
+/* Slightly more contained motion so animated cards never clip */
+@keyframes thermal-warning-heartbeat {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow:
+      inset 0 0 28px rgba(255, 178, 26, .04),
+      0 0 8px rgba(255, 178, 26, .08),
+      0 10px 28px rgba(0, 0, 0, .12);
+  }
+
+  12% {
+    transform: scale(1.008);
+    box-shadow:
+      inset 0 0 34px rgba(255, 178, 26, .10),
+      0 0 22px rgba(255, 178, 26, .27),
+      0 10px 28px rgba(0, 0, 0, .12);
+  }
+
+  24% {
+    transform: scale(1);
+  }
+
+  36% {
+    transform: scale(1.006);
+    box-shadow:
+      inset 0 0 30px rgba(255, 178, 26, .08),
+      0 0 17px rgba(255, 178, 26, .18),
+      0 10px 28px rgba(0, 0, 0, .12);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+}
+
+@keyframes thermal-critical-heartbeat {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow:
+      inset 0 0 30px rgba(255, 80, 101, .06),
+      0 0 12px rgba(255, 80, 101, .11),
+      0 10px 28px rgba(0, 0, 0, .12);
+  }
+
+  10% {
+    transform: scale(1.011);
+    box-shadow:
+      inset 0 0 38px rgba(255, 80, 101, .16),
+      0 0 30px rgba(255, 80, 101, .38),
+      0 10px 28px rgba(0, 0, 0, .12);
+  }
+
+  20% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: scale(1.008);
+    box-shadow:
+      inset 0 0 34px rgba(255, 80, 101, .13),
+      0 0 24px rgba(255, 80, 101, .30),
+      0 10px 28px rgba(0, 0, 0, .12);
+  }
+
+  44% {
+    transform: scale(1);
+  }
+}
+
+/* Keep animated card scale safely inside the zone grid */
+.zones {
+  padding: 2px !important;
+}
+
+/* 800x480-specific vertical balance */
+@media (max-height: 600px) {
+  .measurement.temp {
+    margin: 0 !important;
+  }
+
+  .measurement.humidity {
+    margin: 0 0 20px !important;
+  }
+}
+
+/* Smaller landscape screens */
+@media (max-width: 700px) {
+  .measurement.humidity {
+    margin-bottom: 14px !important;
+  }
+}
+
+/* Respect accessibility preference */
+@media (prefers-reduced-motion: reduce) {
+  .zone-card.warning,
+  .zone-card.critical {
+    animation: none !important;
+  }
+}
+
+/* ============================================================
+   Bigger temperature readout (keep this block last)
+   ============================================================ */
+.measurement.temp strong {
+  font-size: 66px !important;
+  line-height: .95 !important;
+  font-weight: 900 !important;
+}
+.measurement.temp span {
+  font-size: 22px !important;
+  align-self: flex-start;
+  margin-top: 6px;
+}
+
+/* 800x480 kiosk display */
+@media (max-height: 600px) {
+  .measurement.temp { gap: 4px !important; }
+  .measurement.temp svg { width: 26px !important; height: 26px !important; flex-basis: 26px !important; }
+  .measurement.temp strong { font-size: 58px !important; }
+  .measurement.temp span { font-size: 17px !important; margin-top: 5px; }
+}
+
+/* Narrow screens: shrink with the card so the value never clips */
+@media (max-width: 700px) {
+  .measurement.temp strong { font-size: clamp(28px, 7.4vw, 50px) !important; }
+  .measurement.temp span { font-size: 11px !important; margin-top: 3px; }
+}
+@media (max-width: 520px) and (orientation: portrait) {
+  .measurement.temp strong { font-size: clamp(22px, 7vw, 34px) !important; }
+}
+
+/* ============================================================
+   Bigger zone names: Entrance / Exit / Front (keep this block last)
+   ============================================================ */
+.zone-head {
+  grid-template-columns: 52px minmax(0, 1fr) auto !important;
+  gap: 10px !important;
+}
+.zone-icon { width: 52px !important; height: 52px !important; }
+.zone-icon svg { width: 30px !important; height: 30px !important; }
+.zone-title h2 {
+  font-size: 24px !important;
+  line-height: 1.05 !important;
+  font-weight: 900 !important;
+  letter-spacing: .01em;
+  /* allow long zone names to wrap onto 2 lines instead of "..." */
+  white-space: normal !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden !important;
+}
+.zone-title p { font-size: 11px !important; margin-top: 3px !important; }
+
+/* 800x480 kiosk display */
+@media (max-height: 600px) {
+  .zone-head { grid-template-columns: 42px minmax(0, 1fr) auto !important; gap: 7px !important; }
+  .zone-icon { width: 42px !important; height: 42px !important; }
+  .zone-icon svg { width: 24px !important; height: 24px !important; }
+  .zone-title h2 { font-size: 19px !important; }
+  .zone-title p { font-size: 9px !important; margin-top: 2px !important; }
+}
+
+/* Narrow screens */
+@media (max-width: 700px) {
+  .zone-head { grid-template-columns: 30px minmax(0, 1fr) auto !important; gap: 4px !important; }
+  .zone-icon { width: 30px !important; height: 30px !important; }
+  .zone-icon svg { width: 18px !important; height: 18px !important; }
+  .zone-title h2 { font-size: clamp(11px, 3.2vw, 16px) !important; }
+}
+@media (max-width: 520px) and (orientation: portrait) {
+  .zone-head { grid-template-columns: 25px minmax(0, 1fr) !important; }
+  .zone-title h2 { font-size: clamp(10px, 3.4vw, 14px) !important; }
+}

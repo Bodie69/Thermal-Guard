@@ -1,0 +1,53 @@
+<resources>
+    <!-- High-contrast DARK palette. -->
+    <color name="tg_bg">#07111F</color>
+    <color name="tg_surface">#0D1B2A</color>
+    <color name="tg_surface_2">#10243A</color>
+    <color name="tg_surface_3">#17314A</color>
+    <color name="tg_blue">#2E9BFF</color>
+    <color name="tg_blue_2">#6FD5F5</color>
+    <color name="tg_text">#F8FAFC</color>
+    <color name="tg_muted">#B7C4D2</color>
+    <color name="tg_border">#34506A</color>
+    <color name="tg_red">#FF6B74</color>
+    <color name="tg_red_dark">#5B2430</color>
+    <color name="tg_amber">#FFC067</color>
+    <color name="tg_amber_dark">#4D3617</color>
+    <color name="tg_green">#41D991</color>
+    <color name="tg_green_dark">#14543D</color>
+    <color name="tg_teal">#5BE0CF</color>
+    <color name="tg_gray_state">#A6B5C5</color>
+    <color name="tg_white">#FFFFFF</color>
+    <color name="tg_google_text">#142033</color>
+    <color name="tg_nav_unselected">#AFC0D1</color>
+    <color name="tg_nav_bar">#0B1A2A</color>
+    <color name="tg_nav_selected">#7DE3FF</color>
+    <color name="tg_nav_unselected_strong">#DCE8F3</color>
+
+    <color name="tg_settings_hero_start">#133B57</color>
+    <color name="tg_settings_hero_end">#10243A</color>
+    <color name="tg_settings_hero_border">#3A6886</color>
+    <color name="tg_settings_status_bg">#0A1D2D</color>
+    <color name="tg_settings_role_bg">#173C57</color>
+    <color name="tg_settings_danger_bg">#24141C</color>
+    <color name="tg_settings_danger_border">#7A3B4B</color>
+    <color name="tg_icon_circle_bg">#17314A</color>
+    <color name="tg_icon_circle_primary_bg">#183E5C</color>
+    <color name="tg_app_bg_end">#0A1827</color>
+    <color name="tg_pill_amber_bg">#3D2E16</color>
+    <color name="tg_pill_green_bg">#12372C</color>
+    <color name="tg_pill_red_bg">#3B1B26</color>
+
+    <!-- Login redesign colors intentionally remain light in both day/night so the auth screen matches the supplied reference. -->
+    <color name="tg_login_bg">#F8FCFF</color>
+    <color name="tg_login_navy">#082554</color>
+    <color name="tg_login_blue">#0877DE</color>
+    <color name="tg_login_cyan">#17AFC8</color>
+    <color name="tg_login_teal">#0CA99B</color>
+    <color name="tg_login_text">#102B54</color>
+    <color name="tg_login_secondary">#667E9E</color>
+    <color name="tg_login_muted">#8A9EB9</color>
+    <color name="tg_login_border">#CBD8E8</color>
+    <color name="tg_login_success">#14A957</color>
+
+</resources>

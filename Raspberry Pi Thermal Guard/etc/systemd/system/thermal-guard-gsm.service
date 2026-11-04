@@ -1,0 +1,19 @@
+[Unit]
+Description=Thermal Guard GSM SMS Worker
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=thermalguard
+Group=thermalguard
+WorkingDirectory=/opt/thermal-guard
+EnvironmentFile=/opt/thermal-guard/.env
+Environment=PYTHONPATH=/opt/thermal-guard
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/thermal-guard/venv/bin/python /opt/thermal-guard/gsm_worker.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

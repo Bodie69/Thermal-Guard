@@ -1,0 +1,27 @@
+<resources>
+    <style name="Theme.ThermalGuard" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="fontFamily">sans</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:statusBarColor">@color/tg_bg</item>
+        <item name="android:navigationBarColor">@color/tg_surface</item>
+        <item name="colorPrimary">@color/tg_blue</item>
+        <item name="colorSecondary">@color/tg_blue_2</item>
+        <item name="colorSurface">@color/tg_surface</item>
+        <item name="colorOnSurface">@color/tg_text</item>
+        <item name="android:textColorPrimary">@color/tg_text</item>
+        <item name="android:textColorSecondary">@color/tg_muted</item>
+        <item name="android:textColorHint">@color/tg_muted</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+
+    <style name="Theme.ThermalGuard.Splash" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:statusBarColor">@color/tg_bg</item>
+        <item name="android:navigationBarColor">@color/tg_bg</item>
+        <item name="android:windowDisablePreview">false</item>
+    </style>
+</resources>

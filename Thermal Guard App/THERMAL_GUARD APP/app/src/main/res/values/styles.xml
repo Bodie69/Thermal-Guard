@@ -1,0 +1,58 @@
+<resources>
+    <!-- Legacy styles retained for compatibility with older layouts. -->
+    <style name="ThermalGuardNavigationActiveIndicator">
+        <item name="android:color">@color/tg_surface_3</item>
+        <item name="shapeAppearance">@style/ThermalGuardNavigationActiveIndicatorShape</item>
+    </style>
+
+    <style name="ThermalGuardNavigationActiveIndicatorShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="ThermalGuardNavigationTextActive" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="ThermalGuardNavigationTextInactive" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <!-- Custom bar styles used by activity_main.xml. -->
+    <style name="ThermalGuardNavigationItem">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/bg_navigation_item</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingStart">2dp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingEnd">2dp</item>
+        <item name="android:paddingBottom">5dp</item>
+    </style>
+
+    <style name="ThermalGuardNavigationIcon">
+        <item name="android:layout_width">27dp</item>
+        <item name="android:layout_height">27dp</item>
+        <item name="android:importantForAccessibility">no</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
+
+    <style name="ThermalGuardNavigationLabel" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">sans</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/nav_label_color</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+</resources>

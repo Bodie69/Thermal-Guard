@@ -1,0 +1,97 @@
+/* ============================================================
+   Phone layout (portrait, up to 600px wide).
+   The kiosk is an 800x480 landscape screen and never matches this.
+   Zones stack vertically and the page scrolls instead of being
+   shrunk to fit one screen. Load this file last.
+   Keep the query in sync with PHONE_LAYOUT in kiosk.js.
+   ============================================================ */
+@media (max-width: 600px) and (orientation: portrait) {
+  html, body { height: auto !important; min-height: 100%; overflow-x: hidden !important; overflow-y: auto !important; }
+
+  .shell {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 100vh;
+    min-height: 100dvh;
+    transform: none !important;
+    overflow: visible !important;
+    display: flex !important;
+    flex-direction: column;
+    gap: 12px !important;
+    padding: calc(12px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom)) !important;
+  }
+
+  /* ---- header: brand + clock + gear, then the three status cards ---- */
+  .topbar {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) 40px;
+    grid-template-areas:
+      "brand brand clock gear"
+      "net   fb    sens  sens";
+    align-items: center;
+    gap: 10px 6px !important;
+  }
+  .header-status { display: contents !important; }
+  .brand { grid-area: brand; min-width: 0 !important; gap: 8px !important; }
+  .brand-mark { width: 34px !important; height: 38px !important; }
+  .brand h1 { font-size: clamp(14px, 4.3vw, 17px) !important; }
+  .brand p { display: block !important; margin-top: 3px !important; font-size: 10px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .brand-copy.has-chips > p { display: none !important; }   /* chips replace the subtitle, as on the kiosk */
+  .health-chip { font-size: 9.5px !important; }
+
+  .time-block {
+    grid-area: clock; min-width: 0 !important; height: auto !important;
+    padding: 0 0 0 8px !important; text-align: right; align-items: flex-end;
+  }
+  .time-block small { font-size: 9px !important; }
+  .time-block strong { font-size: 13px !important; margin-top: 2px !important; }
+  .gear-btn { grid-area: gear; width: 40px !important; height: 40px !important; justify-self: end; }
+
+  .header-status .status-card { display: flex !important; min-width: 0 !important; height: 44px !important; padding: 5px 8px !important; }
+  .header-status > :nth-child(1) { grid-area: net; }
+  .header-status > :nth-child(2) { grid-area: fb; }
+  .header-status > :nth-child(3) { grid-area: sens; }
+  .status-card small { font-size: 10px !important; }
+  .status-card strong { font-size: 12px !important; margin-top: 4px !important; }
+  .dot { width: 7px !important; height: 7px !important; }
+
+  /* ---- zones: one full-width card each ---- */
+  .zones {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+  .zone-card { min-height: 176px; padding: 14px 14px 12px !important; border-radius: 16px !important; }
+  .zone-head { grid-template-columns: 40px minmax(0, 1fr) auto !important; gap: 10px !important; }
+  .zone-icon { width: 40px !important; height: 40px !important; }
+  .zone-icon svg { width: 22px !important; height: 22px !important; }
+  .zone-title h2 { font-size: 19px !important; }
+  .zone-title p { display: block !important; font-size: 11px !important; }
+  .badge { display: inline-flex !important; font-size: 10px !important; padding: 5px 9px !important; }
+
+  .measurement svg { display: block !important; }
+  .measurement.temp { gap: 6px !important; }
+  .measurement.temp svg { width: 26px !important; height: 26px !important; flex-basis: 26px !important; }
+  .measurement.temp strong { font-size: 52px !important; }
+  .measurement.temp span { font-size: 16px !important; margin-top: 5px; }
+  .measurement.humidity { margin: 6px 0 24px !important; }
+  .measurement.humidity svg { width: 20px !important; height: 20px !important; flex-basis: 20px !important; }
+  .measurement.humidity strong { font-size: 22px !important; }
+  .measurement.humidity span { font-size: 12px !important; }
+  .wave { height: 40px !important; bottom: -16px !important; }
+  .zd-hint { display: block !important; font-size: 11px !important; padding: 3px 9px !important; }
+
+  /* ---- siren / thresholds ---- */
+  .lower-cards { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 8px !important; }
+  .mini-card { height: 64px !important; padding: 6px 8px !important; gap: 0 !important; border-radius: 14px !important; text-align: center; }
+  .mini-icon { display: none !important; }
+  .mini-card small { font-size: 10px !important; }
+  .mini-card strong { font-size: 14px !important; margin-top: 4px !important; }
+}
+
+/* Small phones (360px and below): drop the logo so the title fits */
+@media (max-width: 380px) and (orientation: portrait) {
+  .brand-mark { display: none !important; }
+}

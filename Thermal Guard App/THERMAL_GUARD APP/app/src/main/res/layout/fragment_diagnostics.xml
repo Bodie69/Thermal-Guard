@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@drawable/bg_app_main" android:fillViewport="true" tools:context=".ui.DiagnosticsFragment" tools:showIn="@layout/activity_main">
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingHorizontal="18dp" android:paddingBottom="18dp">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="72dp" android:gravity="center_vertical" android:orientation="horizontal">
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Health" android:textColor="@color/tg_text" android:textSize="27sp" android:textStyle="bold"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Raspberry Pi and sensor connectivity" android:textColor="@color/tg_muted" android:textSize="12sp"/>
+        </LinearLayout>
+        <ImageButton android:id="@+id/btnRefresh" android:layout_width="46dp" android:layout_height="46dp" android:background="@drawable/bg_icon_circle" android:contentDescription="Refresh diagnostics" android:padding="12dp" android:src="@drawable/ic_refresh" app:tint="@color/tg_blue_2"/>
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp" app:cardBackgroundColor="@color/tg_surface" app:cardCornerRadius="18dp" app:strokeColor="@color/tg_border" app:strokeWidth="1dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="14dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
+                <ImageView android:layout_width="38dp" android:layout_height="38dp" android:background="@drawable/bg_icon_circle" android:contentDescription="Raspberry Pi status" android:padding="9dp" android:src="@drawable/ic_diagnostics" app:tint="@color/tg_green"/>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="11dp" android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Raspberry Pi controller" android:textColor="@color/tg_text" android:textSize="15sp" android:textStyle="bold"/>
+                    <TextView android:id="@+id/tvControllerStatus" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Waiting for heartbeat…" android:textColor="@color/tg_muted" android:textSize="11sp"/>
+                </LinearLayout>
+                <com.google.android.material.chip.Chip android:id="@+id/chipController" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="OFFLINE" android:textSize="10sp" app:chipMinHeight="30dp"/>
+            </LinearLayout>
+            <TextView android:id="@+id/tvControllerDetail" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="If the Raspberry Pi heartbeat stops, every sensor is automatically treated as offline." android:textColor="@color/tg_muted" android:textSize="11sp"/>
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginVertical="12dp" android:background="@color/tg_border"/>
+            <LinearLayout android:id="@+id/controllerDetails" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp" app:cardBackgroundColor="@color/tg_surface" app:cardCornerRadius="18dp" app:strokeColor="@color/tg_border" app:strokeWidth="1dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:padding="14dp">
+            <ImageView android:layout_width="38dp" android:layout_height="38dp" android:background="@drawable/bg_icon_circle" android:contentDescription="Sensor status" android:padding="9dp" android:src="@drawable/ic_thermometer" app:tint="@color/tg_blue_2"/>
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="11dp" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sensor freshness" android:textColor="@color/tg_text" android:textSize="15sp" android:textStyle="bold"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="A sensor needs a fresh reading after the Pi reconnects; values older than 30 seconds are offline." android:textColor="@color/tg_muted" android:textSize="11sp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView android:id="@+id/emptyText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:paddingVertical="24dp" android:text="Waiting for sensor data…" android:textColor="@color/tg_muted" android:visibility="gone"/>
+
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/diagnosticList" android:layout_width="match_parent" android:layout_height="wrap_content" android:nestedScrollingEnabled="false" tools:listitem="@layout/item_diagnostic" tools:itemCount="3"/>
+</LinearLayout>
+</androidx.core.widget.NestedScrollView>

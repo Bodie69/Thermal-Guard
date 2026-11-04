@@ -1,0 +1,140 @@
+/* =========================================================
+   THERMAL GUARD
+   WIFI TOUCH / CLICK / STACKING FIX
+   ========================================================= */
+
+/* Sidebar drawer layer */
+.drawer-overlay{
+  z-index:9000 !important;
+}
+
+.drawer{
+  z-index:9010 !important;
+  pointer-events:auto !important;
+}
+
+/* Normal application modal */
+.modal-backdrop{
+  z-index:10000 !important;
+}
+
+.modal{
+  z-index:10010 !important;
+}
+
+/* Open dialog must always receive touch */
+.modal.open,
+.drawer.open,
+#tgWifiPanel,
+#tgWifiConnectBox,
+.wifi-settings,
+.wifi-panel,
+.wifi-dialog,
+.wifi-modal,
+.network-dialog,
+.network-modal{
+  pointer-events:auto !important;
+}
+
+/* Wi-Fi controls */
+#tgWifiPanel button,
+#tgWifiPanel input,
+#tgWifiPanel select,
+
+#tgWifiConnectBox button,
+#tgWifiConnectBox input,
+
+.wifi-settings button,
+.wifi-settings input,
+.wifi-settings select,
+
+.wifi-panel button,
+.wifi-panel input,
+
+.wifi-dialog button,
+.wifi-dialog input,
+
+.wifi-modal button,
+.wifi-modal input,
+
+.network-dialog button,
+.network-dialog input,
+
+.network-modal button,
+.network-modal input,
+
+.tgWifiNetwork,
+.tgWifiRefresh,
+.tgWifiClose,
+.tgWifiConnect,
+#tgWifiPassword{
+  pointer-events:auto !important;
+  touch-action:manipulation !important;
+}
+
+/* Buttons sit above decorative children */
+#tgWifiPanel button,
+.modal button,
+.drawer button{
+  position:relative;
+  z-index:2;
+}
+
+/* Child icons/text must not steal the tap */
+button svg,
+button img,
+button span,
+button i{
+  pointer-events:none;
+}
+
+/* Password field */
+#tgWifiPassword,
+input[type="password"]{
+  user-select:text !important;
+  -webkit-user-select:text !important;
+}
+
+/* Keyboard above dialog.
+   Must be above the Wi-Fi screen (#tgWifiRefScreen, z-index 999999) and its
+   dialog (1000001). The old value 10030 was for an earlier Wi-Fi panel and put
+   the keyboard BEHIND the current screen: invisible and untouchable. */
+#tgWifiKeyboard{
+  z-index:1000005 !important;
+}
+
+/* Completely remove hidden keyboard from hit testing */
+#tgWifiKeyboard:not(.open){
+  pointer-events:none !important;
+  visibility:hidden !important;
+}
+
+/* Active keyboard works normally */
+#tgWifiKeyboard.open{
+  pointer-events:auto !important;
+  visibility:visible !important;
+}
+
+/* Keyboard keys */
+#tgWifiKeyboard button{
+  pointer-events:auto !important;
+  touch-action:manipulation !important;
+  position:relative;
+  z-index:3;
+}
+
+/* Hidden custom overlay cannot capture taps */
+#tgWifiOverlay[hidden],
+#tgWifiOverlay[style*="display: none"]{
+  pointer-events:none !important;
+}
+
+/* Active TG Wi-Fi UI */
+#tgWifiOverlay:not([hidden]){
+  pointer-events:auto;
+}
+
+/* Disabled really means disabled only */
+button:not(:disabled){
+  pointer-events:auto;
+}
