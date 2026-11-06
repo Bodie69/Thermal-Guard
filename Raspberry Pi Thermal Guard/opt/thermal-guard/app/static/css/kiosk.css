@@ -728,12 +728,12 @@ button.mini-card{cursor:pointer}
    Bigger temperature readout (keep this block last)
    ============================================================ */
 .measurement.temp strong {
-  font-size: 74px !important;
+  font-size: 96px !important;
   line-height: .95 !important;
   font-weight: 900 !important;
 }
 .measurement.temp span {
-  font-size: 24px !important;
+  font-size: 31px !important;
   align-self: flex-start;
   margin-top: 6px;
 }
@@ -741,18 +741,18 @@ button.mini-card{cursor:pointer}
 /* 800x480 kiosk display */
 @media (max-height: 600px) {
   .measurement.temp { gap: 4px !important; }
-  .measurement.temp svg { width: 26px !important; height: 26px !important; flex-basis: 26px !important; }
-  .measurement.temp strong { font-size: 64px !important; }
-  .measurement.temp span { font-size: 18px !important; margin-top: 5px; }
+  .measurement.temp svg { display: none !important; }   /* room for the bigger number */
+  .measurement.temp strong { font-size: 83px !important; }
+  .measurement.temp span { font-size: 23px !important; margin-top: 6px; }
 }
 
 /* Narrow screens: shrink with the card so the value never clips */
 @media (max-width: 700px) {
-  .measurement.temp strong { font-size: clamp(30px, 8vw, 54px) !important; }
-  .measurement.temp span { font-size: 11px !important; margin-top: 3px; }
+  .measurement.temp strong { font-size: clamp(39px, 10.4vw, 70px) !important; }
+  .measurement.temp span { font-size: 14px !important; margin-top: 3px; }
 }
 @media (max-width: 520px) and (orientation: portrait) {
-  .measurement.temp strong { font-size: clamp(24px, 7.6vw, 37px) !important; }
+  .measurement.temp strong { font-size: clamp(31px, 9.9vw, 48px) !important; }
 }
 
 /* ============================================================
@@ -765,7 +765,7 @@ button.mini-card{cursor:pointer}
 .zone-icon { width: 52px !important; height: 52px !important; }
 .zone-icon svg { width: 30px !important; height: 30px !important; }
 .zone-title h2 {
-  font-size: 28px !important;
+  font-size: 36px !important;
   line-height: 1.05 !important;
   font-weight: 900 !important;
   letter-spacing: .01em;
@@ -780,10 +780,14 @@ button.mini-card{cursor:pointer}
 
 /* 800x480 kiosk display */
 @media (max-height: 600px) {
-  .zone-head { grid-template-columns: 42px minmax(0, 1fr) auto !important; gap: 7px !important; }
+  .zone-head { gap: 7px !important; }
   .zone-icon { width: 42px !important; height: 42px !important; }
   .zone-icon svg { width: 24px !important; height: 24px !important; }
-  .zone-title h2 { font-size: 22px !important; }
+  .zone-title h2 { font-size: 29px !important; }
+  /* status badge moves under the name so the bigger name has the full width */
+  .zone-head { grid-template-columns: 42px minmax(0, 1fr) !important; row-gap: 4px !important; }
+  .zone-head .badge { grid-column: 2; grid-row: 2; justify-self: start; }
+  .zone-head .zone-icon { grid-row: 1 / span 2; align-self: center; }
   .zone-title p { font-size: 9px !important; margin-top: 2px !important; }
 }
 
@@ -792,9 +796,9 @@ button.mini-card{cursor:pointer}
   .zone-head { grid-template-columns: 30px minmax(0, 1fr) auto !important; gap: 4px !important; }
   .zone-icon { width: 30px !important; height: 30px !important; }
   .zone-icon svg { width: 18px !important; height: 18px !important; }
-  .zone-title h2 { font-size: clamp(12px, 3.6vw, 18px) !important; }
+  .zone-title h2 { font-size: clamp(16px, 4.7vw, 23px) !important; }
 }
 @media (max-width: 520px) and (orientation: portrait) {
   .zone-head { grid-template-columns: 25px minmax(0, 1fr) !important; }
-  .zone-title h2 { font-size: clamp(11px, 3.8vw, 16px) !important; }
+  .zone-title h2 { font-size: clamp(14px, 4.9vw, 21px) !important; }
 }
