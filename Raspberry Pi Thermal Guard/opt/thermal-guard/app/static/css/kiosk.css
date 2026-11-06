@@ -728,12 +728,12 @@ button.mini-card{cursor:pointer}
    Bigger temperature readout (keep this block last)
    ============================================================ */
 .measurement.temp strong {
-  font-size: 96px !important;
+  font-size: 86px !important;
   line-height: .95 !important;
   font-weight: 900 !important;
 }
 .measurement.temp span {
-  font-size: 31px !important;
+  font-size: 28px !important;
   align-self: flex-start;
   margin-top: 6px;
 }
@@ -742,17 +742,17 @@ button.mini-card{cursor:pointer}
 @media (max-height: 600px) {
   .measurement.temp { gap: 4px !important; }
   .measurement.temp svg { display: none !important; }   /* room for the bigger number */
-  .measurement.temp strong { font-size: 83px !important; }
-  .measurement.temp span { font-size: 23px !important; margin-top: 6px; }
+  .measurement.temp strong { font-size: 75px !important; }
+  .measurement.temp span { font-size: 21px !important; margin-top: 6px; }
 }
 
 /* Narrow screens: shrink with the card so the value never clips */
 @media (max-width: 700px) {
-  .measurement.temp strong { font-size: clamp(39px, 10.4vw, 70px) !important; }
-  .measurement.temp span { font-size: 14px !important; margin-top: 3px; }
+  .measurement.temp strong { font-size: clamp(35px, 9.4vw, 63px) !important; }
+  .measurement.temp span { font-size: 13px !important; margin-top: 3px; }
 }
 @media (max-width: 520px) and (orientation: portrait) {
-  .measurement.temp strong { font-size: clamp(31px, 9.9vw, 48px) !important; }
+  .measurement.temp strong { font-size: clamp(28px, 8.9vw, 43px) !important; }
 }
 
 /* ============================================================
