@@ -289,23 +289,11 @@
     if (dot) dot.className = 'dot ' + color;
   }
 
-  /* ---------- stale data banner ---------- */
+  /* ---------- stale data ---------- */
+  // Readings stay fully visible when stale; body.data-stale is only a hook.
   const STALE_AFTER_MS = 15000;
   let lastLiveOkAt = 0;        // browser time of last successful poll
   let lastDataAt = 0;          // Pi time of the newest reading
-
-  function staleBanner() {
-    let el = $('#staleBanner');
-    if (!el) {
-      el = document.createElement('div');
-      el.id = 'staleBanner';
-      el.className = 'stale-banner';
-      el.setAttribute('role', 'alert');
-      el.innerHTML = '<b>⚠ Readings are not updating</b><span id="staleDetail"></span>';
-      document.body.appendChild(el);
-    }
-    return el;
-  }
 
   function checkStale() {
     const now = Date.now();
@@ -313,23 +301,6 @@
     const age = newest ? now - newest : (lastLiveOkAt ? now - lastLiveOkAt : Infinity);
     const stale = !lastLiveOkAt || now - lastLiveOkAt > STALE_AFTER_MS || age > STALE_AFTER_MS;
     document.body.classList.toggle('data-stale', stale);
-    const banner = staleBanner();
-    banner.classList.toggle('show', stale);
-    if (stale) {
-      const detail = $('#staleDetail');
-      if (detail) {
-        if (!lastLiveOkAt) {
-          detail.textContent = 'Waiting for the Thermal Guard service…';
-        } else {
-          const when = new Date(newest || lastLiveOkAt).toLocaleTimeString('en-PH', {
-            timeZone: 'Asia/Manila', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true
-          });
-          const secs = Math.round(age / 1000);
-          detail.textContent = `Last update ${when} (${secs < 120 ? secs + ' s' : Math.round(secs / 60) + ' min'} ago). ` +
-            (now - lastLiveOkAt > STALE_AFTER_MS ? 'The monitoring service is not responding.' : 'The sensors stopped reporting.');
-        }
-      }
-    }
   }
 
   /* ---------- warning chips (siren, power, SMS) ---------- */
