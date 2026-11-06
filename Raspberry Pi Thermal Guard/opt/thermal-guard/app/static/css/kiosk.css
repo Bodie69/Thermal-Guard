@@ -802,3 +802,21 @@ button.mini-card{cursor:pointer}
   .zone-head { grid-template-columns: 25px minmax(0, 1fr) !important; }
   .zone-title h2 { font-size: clamp(14px, 4.9vw, 21px) !important; }
 }
+
+/* ============================================================
+   Bigger status badges: NORMAL / WARNING / CRITICAL / OFFLINE (keep last)
+   ============================================================ */
+.zone-head .badge { font-size: 13px !important; padding: 6px 12px !important; gap: 7px !important; letter-spacing: .03em; }
+.zone-head .badge i { width: 9px !important; height: 9px !important; }
+
+/* 800x480 kiosk display (badge sits under the zone name here) */
+@media (max-height: 600px) {
+  .zone-head .badge { font-size: 11px !important; padding: 4px 10px !important; gap: 6px !important; }
+  .zone-head .badge i { width: 8px !important; height: 8px !important; }
+}
+
+/* Narrow screens */
+@media (max-width: 700px) {
+  .zone-head .badge { font-size: 9px !important; padding: 3px 7px !important; gap: 4px !important; }
+  .zone-head .badge i { width: 6px !important; height: 6px !important; }
+}
